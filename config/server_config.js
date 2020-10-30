@@ -7,7 +7,7 @@ module.exports = {
     db: {
         host: 'localhost',
         user: 'root',
-        password: 'password1231',
+        password: '',
         port: 3306,
         database: 'db_interverify'
     },
@@ -15,8 +15,8 @@ module.exports = {
 
         service: 'gmail',
         auth: {
-            user: 'donotreply@interverify.co',
-            pass: 'GoodDay)(*1',
+            user: 'smtp@example.com',
+            pass: 'password',
         }
     },
 }

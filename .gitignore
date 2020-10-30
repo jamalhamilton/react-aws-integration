@@ -9,3 +9,5 @@ yarn-error.log
 .phpunit.result.cache
 .idea/
 /frontend/node_modules
+/config/live.js
+/config/local.js
