@@ -8,3 +8,4 @@ npm-debug.log
 yarn-error.log
 .phpunit.result.cache
 .idea/
+/frontend/node_modules
