@@ -112,6 +112,8 @@ class IDAuth extends React.Component {
                 uploadedPhoto: data.data.verify_photo,
                 uploadedId: data.data.verify_idcard,
             });
+        }).catch(error => {
+            window.location.href="/";
         });
 
         clearInterval(this.state.apiTmr);
@@ -131,6 +133,8 @@ class IDAuth extends React.Component {
                     uploadedId: data.data.verify_idcard,
                 });
                 if (data.data.verify_idcard) clearInterval(that.state.apiTmr);
+            }).catch(error => {
+                window.location.href="/";
             });
         }, 3000);
 
@@ -204,21 +208,26 @@ class IDAuth extends React.Component {
                     body: JSON.stringify(verifyType),
                 }).then(res => res.json()).then(data => {
                     if (data.status) {
-                        that.setState({
-                            msgColor: 'black',
-                            resultMsg: 'Uploading done.',
-                        });
-                        console.log('-------- uploaded: ', data);
-                        setTimeout(function () {
+                        if (authStep === 1){
+                            window.location.href="/idsuccess";
+                        }
+                        else{
                             that.setState({
-                                authStep: 0,
-                                resultMsg: '',
-                                imageSrc: '',
-                                isPhotoTaken: false,
-                                resultBtnStatus: 0,
-                                uploadingProgress: 0
+                                msgColor: 'black',
+                                resultMsg: 'Uploading done.',
                             });
-                        }, 1000);
+                            console.log('-------- uploaded: ', data);
+                            setTimeout(function () {
+                                that.setState({
+                                    authStep: 0,
+                                    resultMsg: '',
+                                    imageSrc: '',
+                                    isPhotoTaken: false,
+                                    resultBtnStatus: 0,
+                                    uploadingProgress: 0
+                                });
+                            }, 1000);
+                        }
                     }
                     console.log('data', data.data)
                 });
@@ -258,6 +267,7 @@ class IDAuth extends React.Component {
                     that.setState({
                         msgColor: 'red',
                         resultMsg: errMsg,
+                        showLoadingIcon: {display: 'none'}
                     });
                     return;
                 }
@@ -271,6 +281,7 @@ class IDAuth extends React.Component {
                 that.setState({
                     msgColor: 'red',
                     resultMsg: 'Server connection failed.',
+                    showLoadingIcon: {display: 'none'}
                 });
             }
         });

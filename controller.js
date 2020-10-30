@@ -119,7 +119,7 @@ controller.sendResultMail = (req, res, next) => {
                 html: `
                     <h2>Hello ${userInfo.interviewer_name_first} ${userInfo.interviewer_name_last}.</h2>
                     <p>${userInfo.candidate_name_first} ${userInfo.candidate_name_last} has submitted ID information and complete the verification step.</p> 
-                    <p>This is the verification similarity: ` +userInfo.similarity+` </p>
+                    <p>This is the verification similarity: ` +userData.similarity+` </p>
                     <p>You can contact the candidate directly:<a href="mailto:${userInfo.candidate_email}"> ${userInfo.candidate_email}</a></p>
                     <p>Please click the following link to connect with the candidate.</p>
                     <p><a href="${userInfo.social_link}">${userInfo.social_link}</a></p>
@@ -141,6 +141,7 @@ controller.sendResultMail = (req, res, next) => {
 };
 
 controller.getUser = (req, res, next) => {
+    console.log("************")
     req.getConnection((err, conn) => {
         var errMsg = '';
         if (err) errMsg = `Database Error : ${err}`;
@@ -152,7 +153,7 @@ controller.getUser = (req, res, next) => {
             res.send({ status: false, data: errMsg });
             return;
         }
-        console.log('-- provided UserInfo : ', userData);
+        console.log('***provided UserInfo : ', userData);
         conn.query("select id, verify_photo, verify_idcard from tbl_user where token='" + userData.token + "'", (err, rows) => {
             if (err) {
                 res.send({ status: false, data: `Database Error on reading: ${err}` });
