@@ -62,7 +62,7 @@ class IDAuth extends React.Component {
             resultBtnStatus: 0,
 
             uploadingProgress: 0,
-
+            showLoadingIcon: {display: 'none'},
             apiTmr: 0
         };
 
@@ -240,7 +240,9 @@ class IDAuth extends React.Component {
     navToVerify() {
         var that = this;
         var { userToken } = this.state;
-
+        this.setState({
+            showLoadingIcon: {display: 'inline-block'}
+        });
         fetch(config.api.getUser, {
             headers: { 'Content-Type': 'application/json' },
             method: "POST",
@@ -264,14 +266,7 @@ class IDAuth extends React.Component {
                     photo_target: data.data.verify_idcard,
                 })
                 that.comparePhoto();
-                // setTimeout(function () {
-                //     that.setState({
-                //         authStep: 2,       //authStep + 1,
-                //         resultMsg: '',
-                //         resultBtnStatus: 0,
-                //         uploadingProgress: 0
-                //     });
-                // }, 1000);
+
             } else {
                 that.setState({
                     msgColor: 'red',
@@ -302,7 +297,9 @@ class IDAuth extends React.Component {
             that.setState({
                 authStep: 0,
                 resultBtnStatus: 0,
+                showLoadingIcon: {display: 'none'}
             })
+       
             return;
         }
         const bucket = config.aws.bucket; // the bucketname without s3://
@@ -346,28 +343,27 @@ class IDAuth extends React.Component {
                     that.setState({
                         resultBtnStatus: 1,
                         msgColor: 'red',
-                        resultMsg: 'You didn\'t upload exact personal photo.'
+                        resultMsg: 'You didn\'t upload exact personal photo.',
+                        showLoadingIcon: {display: 'none'}
                     })
+                  
                     return;
                 }
                 if (!response.FaceMatches.length) {
                     that.setState({
                         resultBtnStatus: 1,
                         msgColor: 'red',
-                        resultMsg: 'User and ID is not matched!'
+                        resultMsg: 'User and ID is not matched!',
+                        showLoadingIcon: {display: 'none'}
                     })
                     return;
                 }
-                console.log('-- compare 1')
-                console.log('--- response.faceMatches: ', response.FaceMatches);
-
+               
                 response.FaceMatches.forEach((data) => {
-                    console.log('-- compare 2 : ', data)
+                   
                     let position = data.Face.BoundingBox;
                     let similarity = data.Similarity;
-                    console.log(
-                        `The face at: ${position.Left}, ${position.Top} matches with ${similarity} % confidence`
-                    );
+                   
                     fetch(config.api.updateUserInfo, {
                         headers: { 'Content-Type': 'application/json' },
                         method: "POST",
@@ -378,11 +374,31 @@ class IDAuth extends React.Component {
                     }).then(res => res.json()).then(data => {
                         if (data.status) {
                             console.log('-------- uploaded: ', data);
-                            that.setState({
-                                resultBtnStatus: 1,
-                                msgColor: 'black',
-                                resultMsg: 'User\'s similarity is : ' + similarity + '.'
-                            });
+
+                            fetch(config.api.sendResultMail, {
+                                headers: { 'Content-Type': 'application/json' },
+                                method: "POST",
+                                body: JSON.stringify({
+                                    token: data.token,
+                                    similarity: similarity
+                                }),
+                            }).then(response => response.json())
+                            .then(data => {
+                             
+console.log(data);
+                                if(data.status){
+                                    window.location.href = data.data;
+                                }
+                                else{
+                                    that.setState({
+                                        resultBtnStatus: 1,
+                                        msgColor: 'red',
+                                        resultMsg: data.data,
+                                        showLoadingIcon: {display: 'none'}
+                                    });
+                                }
+                              });
+
                         }
                         console.log('data', data.data)
                     });
@@ -468,10 +484,11 @@ class IDAuth extends React.Component {
                         <Divider />
                         <Row style={{ marginTop: 30 }}>
                             <Col>
-                                <Button
+                                <Button 
                                     variant="primary"
                                     onClick={this.navToVerify}
                                 >
+                                   <i style={this.state.showLoadingIcon} className="fa fa-spinner fa-spin"></i>
                                     Verify Information
                                 </Button>
                             </Col>

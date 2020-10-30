@@ -1,4 +1,5 @@
 const siteUrl = "https://interverify.co";
+//const siteUrl = "http://localhost:3000/";
 const redirectUrl = siteUrl + '/idme_code'
 const clientId = "34d614b8c18543abd81f338aaeb7b0de"
 
@@ -25,6 +26,7 @@ export default {
         getUser: '/api/getUser',
         registerUser: '/api/registerUser',
         sendMail: '/api/sendMail',
+        sendResultMail: '/api/sendResultMail',
         updateUserInfo: '/api/updateUserInfo',
     }
 }

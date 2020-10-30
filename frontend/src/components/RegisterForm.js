@@ -39,7 +39,6 @@ export default class RegisterForm extends React.Component {
         var { userInfo, isUploading } = this.state;
 
         console.log('------ userInfo: ', userInfo);
-        console.log('------ userInfo: ', userInfo);
 
         if (isUploading) return;
         this.setState({ isUploading: true });
@@ -56,22 +55,15 @@ export default class RegisterForm extends React.Component {
                         token: data.token
                     }),
                 }).then(() => {
-                    alert('Email sent successfully to ' + userInfo.candidate_email + '. Please check it.');
                     this.setState({ isUploading: false });
+                    window.location.href="/success";
+
                 });
             } else {
                 this.setState({ isUploading: false });
             }
             console.log('data', data.data)
         });
-
-        // fetch(config.api.sendMail, {
-        //     headers: { 'Content-Type': 'application/json' },
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //         token: '7DtjnxcKzKw8HtVkoWnH'
-        //     }),
-        // });
 
     }
 

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import IDAuth from "./components/IDAuth";
-// import IDMeCode from "./components/IDMeCode";
+import SubmitSuccess from "./components/SubmitSuccess";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterForm from "./components/RegisterForm";
@@ -28,6 +28,7 @@ function App() {
             {/* A <Switch> looks through its children <Route>s and
 renders the first one that matches the current URL. */}
             <Switch>
+                <Route path="/success" children={<SubmitSuccess />} />
                 <Route path={config.api.verifyID} children={<IDAuth />} />
                 <Route path="/" children={<RegisterForm />} />
             </Switch>
