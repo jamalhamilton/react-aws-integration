@@ -10,5 +10,4 @@ yarn-error.log
 .idea/
 /frontend/node_modules
 /config/live.js
-/config/server_config.js
 /config/local.js
