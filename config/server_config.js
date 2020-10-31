@@ -15,8 +15,8 @@ module.exports = {
 
         service: 'gmail',
         auth: {
-            user: 'gmailaccount',
-            pass: 'password',
+            user: 'donotreply@interverify.co',
+            pass: 'GoodDay)(*1',
         }
     },
 }
