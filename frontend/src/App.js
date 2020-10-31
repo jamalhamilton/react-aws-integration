@@ -8,6 +8,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import IDAuth from "./components/IDAuth";
 import SubmitSuccess from "./components/SubmitSuccess";
 import SubmitIDSuccess from "./components/SubmitIDSuccess";
+import LandingPage from "./components/LandingPage";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterForm from "./components/RegisterForm";
@@ -32,7 +33,8 @@ renders the first one that matches the current URL. */}
                 <Route path="/success" children={<SubmitSuccess />} />
                 <Route path="/idsuccess" children={<SubmitIDSuccess />} />
                 <Route path={config.api.verifyID} children={<IDAuth />} />
-                <Route path="/" children={<RegisterForm />} />
+                <Route path="/submit" children={<RegisterForm />} />
+                <Route path="/" children={<LandingPage />} />
             </Switch>
         </Router>
     );

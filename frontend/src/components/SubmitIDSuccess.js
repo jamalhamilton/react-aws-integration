@@ -14,9 +14,6 @@ class SubmitIDSuccess extends React.Component {
 
         };
     }
-    goBack(){
-        window.location.href = '/';
-    }
     render() {
 
         return (
