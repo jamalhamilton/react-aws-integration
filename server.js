@@ -8,13 +8,13 @@ const myConnection = require('express-myconnection');
 // importing routes
 const routes = require('./routes');
 
-app.use(myConnection(mysql, {
-  host: config.db.host,
-  user: config.db.user,
-  password: config.db.password,
-  port: config.db.port,
-  database: config.db.database
-}, 'single'));
+// app.use(myConnection(mysql, {
+//   host: config.db.host,
+//   user: config.db.user,
+//   password: config.db.password,
+//   port: config.db.port,
+//   database: config.db.database
+// }, 'single'));
 
 // routes
 app.use('/api', routes);
