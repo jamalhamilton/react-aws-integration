@@ -1,9 +1,9 @@
 const express = require('express');
 
 const app = express();
-var mysql = require('mysql');
+// var mysql = require('mysql');
 const config = require('./config/server_config');
-const myConnection = require('express-myconnection');
+// const myConnection = require('express-myconnection');
 
 // importing routes
 const routes = require('./routes');
