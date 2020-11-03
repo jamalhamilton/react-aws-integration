@@ -178,6 +178,11 @@ const AdminPage = () => {
         }
     }
 
+    const logout = () => {
+        localStorage.removeItem("authToken");
+        history.push('/login');
+    }
+
     const editUserView = () => {
         if (showEditView) {
             return (
@@ -272,6 +277,7 @@ const AdminPage = () => {
                 }}>
                 <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
             </div> : null}
+            <Button style={{margin: 10}} onClick={() => logout()}>Logout</Button>
             <Table style={{ tableLayout: 'fixed' }} striped bordered hover>
                 <thead>
                     <tr>
