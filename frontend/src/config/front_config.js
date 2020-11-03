@@ -30,6 +30,7 @@ export default {
         updateUserInfo: '/api/updateUserInfo',
         adminLogin: '/api/admin/login',
         adminGetAllUsers: '/api/admin/getAllUsers',
-        adminDeleteUser: '/api/admin/deleteUser'
+        adminDeleteUser: '/api/admin/deleteUser',
+        adminUpdate: '/api/admin/updateUser',
     }
 }
