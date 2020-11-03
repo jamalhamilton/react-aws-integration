@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect,
 } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import IDAuth from "./components/IDAuth";
@@ -12,7 +13,30 @@ import LandingPage from "./components/LandingPage";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterForm from "./components/RegisterForm";
+import AdminPage from "./components/AdminPage";
+import LoginPage from "./components/LoginPage";
 import config from "./config/front_config";
+
+const AuthRoute = ({ children, ...rest }) => {
+    const token = localStorage.getItem("authToken");
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+            token ? (
+                    children
+                ) : (
+                        <Redirect
+                            to={{
+                                pathname: "/login",
+                                state: { from: location }
+                            }}
+                        />
+                    )
+            }
+        />
+    );
+}
 
 function App() {
     return (
@@ -34,6 +58,8 @@ renders the first one that matches the current URL. */}
                 <Route path="/idsuccess" children={<SubmitIDSuccess />} />
                 <Route path={config.api.verifyID} children={<IDAuth />} />
                 <Route path="/submit" children={<RegisterForm />} />
+                <Route path="/login" children={<LoginPage />} />
+                <AuthRoute path="/admin" children={<AdminPage />} />
                 <Route path="/" children={<LandingPage />} />
             </Switch>
         </Router>

@@ -146,6 +146,51 @@ const updateUser = (req, res) => {
     }
 }
 
+const getAllUsers = (req, res) => {
+    const authHeader = req.headers['authorization'];
+    try {
+        if (authHeader) {
+            const token = authHeader.split(' ')[1];
+            if (token) {
+                const tokenDecode = validateToken(token);
+                if (tokenDecode && tokenDecode.id) {
+                        const params = {
+                            TableName: 'users'
+                        };
+                        docClient.scan(params, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                                res.send({
+                                    success: false,
+                                    message: err
+                                });
+                            } else {
+                                const { Items } = data;
+                                res.send({
+                                    success: true,
+                                    data: Items 
+                                });
+                            }
+                        });
+                } else {
+                    throw 'Unauthorized access';
+                }
+            } else {
+                throw 'Unauthorized access';
+            }
+        } else {
+            throw 'Unauthorized access';
+        }
+    }
+    catch (error) {
+        res.send({
+            success: false,
+            message: error
+        });
+        return;
+    }
+}
+
 const login = (req, res) => {
     const loginData = req.body;
     try {
@@ -201,5 +246,6 @@ const login = (req, res) => {
 module.exports = {
     login,
     deleteUser,
-    updateUser
+    updateUser,
+    getAllUsers
 }

@@ -16,6 +16,7 @@ router.post('/sendResultMail', bodyParser.json(), controller.sendResultMail);
 
 // admin routes
 router.post('/admin/login', bodyParser.json(), adminController.login);
+router.get('/admin/getAllUsers', adminController.getAllUsers);
 router.post('/admin/deleteUser', bodyParser.json(), adminController.deleteUser);
 router.post('/admin/updateUser', bodyParser.json(), adminController.updateUser);
 
