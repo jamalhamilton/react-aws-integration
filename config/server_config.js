@@ -23,5 +23,6 @@ module.exports = {
         accessKeyId: 'AKIAVJKPVCLEKM2YG33J',
         secretAccessKey: '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',
         region: 'us-east-2'
-    }
+    },
+    jwtSecretKey: "jfvt14FcqvsA3ToJMl9lrE"
 }
