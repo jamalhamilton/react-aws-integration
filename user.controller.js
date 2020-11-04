@@ -2,7 +2,7 @@ const config = require('./config/server_config');
 const AWS = require('aws-sdk');
 AWS.config.update(config.aws_remote_config);
 const docClient = new AWS.DynamoDB.DocumentClient();
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 
 const generateRandomString = (len) => {
     if (!len) len = 8;
