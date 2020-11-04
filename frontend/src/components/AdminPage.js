@@ -66,10 +66,10 @@ const AdminPage = () => {
                             <Modal.Title>Delete user!</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <p>do confirm it.</p>
+                            <p>Are you sure to remove this user?</p>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={() => setShowDeleteConfirmation(false)} variant="secondary">No, Don't</Button>
+                            <Button onClick={() => setShowDeleteConfirmation(false)} variant="secondary">No</Button>
                             <Button onClick={() => confirmDelete()} variant="danger">yes, Delete</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
