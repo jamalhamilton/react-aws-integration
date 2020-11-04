@@ -1,5 +1,3 @@
-
-
 module.exports = {
     serverPort: 5000,
     serverRoot: 'https://interverify.co',
