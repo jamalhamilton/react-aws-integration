@@ -28,5 +28,9 @@ export default {
         sendMail: '/api/sendMail',
         sendResultMail: '/api/sendResultMail',
         updateUserInfo: '/api/updateUserInfo',
+        adminLogin: '/api/admin/login',
+        adminGetAllUsers: '/api/admin/getAllUsers',
+        adminDeleteUser: '/api/admin/deleteUser',
+        adminUpdate: '/api/admin/updateUser',
     }
 }
