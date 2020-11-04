@@ -36,14 +36,11 @@ const registerUser = (req, res) => {
     getUserInfo(params)
         .then(data => {
             if (data && data.id && data.token) {
-                const id = data.id;
-                const token = data.token;
                 const params = {
                     TableName: 'users',
                     Item: {
-                        token,
-                        ...userData,
-                        id
+                        ...data,
+                        ...userData
                     }
                 };
                 docClient.put(params, function (err, data) {
@@ -162,14 +159,11 @@ const updateUserInfo = (req, res) => {
     getUserInfo(params)
         .then(data => {
             if (data && data.id && data.token) {
-                const id = data.id;
-                const token = data.token;
                 const params = {
                     TableName: 'users',
                     Item: {
-                        token,
-                        ...userData,
-                        id
+                        ...data,
+                        ...userData
                     }
                 };
                 docClient.put(params, function (err, data) {
@@ -183,6 +177,11 @@ const updateUserInfo = (req, res) => {
                             ...params.Item
                         });
                     }
+                });
+            } else {
+                res.send({
+                    success: false,
+                    message: "No record found!"
                 });
             }
         })
