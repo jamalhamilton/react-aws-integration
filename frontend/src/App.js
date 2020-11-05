@@ -16,6 +16,7 @@ import RegisterForm from "./components/RegisterForm";
 import AdminPage from "./components/AdminPage";
 import LoginPage from "./components/LoginPage";
 import config from "./config/front_config";
+import UpdateUser from "./components/UserUpdatePage";
 
 const AuthRoute = ({ children, ...rest }) => {
     const token = localStorage.getItem("authToken");
@@ -59,6 +60,7 @@ renders the first one that matches the current URL. */}
                 <Route path={config.api.verifyID} children={<IDAuth />} />
                 <Route path="/submit" children={<RegisterForm />} />
                 <Route path="/login" children={<LoginPage />} />
+                <AuthRoute path="/admin/update/:id" children={<UpdateUser />} />
                 <AuthRoute path="/admin" children={<AdminPage />} />
                 <Route path="/" children={<LandingPage />} />
             </Switch>

@@ -65,9 +65,9 @@ const LoginPage = () => {
 
     return (
         <Router>
-            <Container style={{ textAlign: "center" }}>
-                <Row style={{ marginTop: 50 }}>
-                    <Col>
+            <Container style={{ textAlign: "center", backgroundColor: '#ced1c9', padding: 30, borderRadius: 10 }}>
+                <Row className="justify-content-md-center" style={{ marginTop: 50 }}>
+                    <Col xs lg="6">
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>

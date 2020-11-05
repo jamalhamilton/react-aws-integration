@@ -56,7 +56,7 @@ export default class RegisterForm extends React.Component {
                     }),
                 }).then(() => {
                     this.setState({ isUploading: false });
-                    window.location.href="/success";
+                    window.location.href = "/success";
 
                 });
             } else {
@@ -171,7 +171,7 @@ export default class RegisterForm extends React.Component {
                             <Col>
                                 <Button variant="primary" type="submit"
                                     onClick={this.registerUserData}
-                                >{this.state.isUploading?'Uploading...':'Submit'}</Button>
+                                >{this.state.isUploading ? 'Uploading...' : 'Submit'}</Button>
                             </Col>
                         </Row>
                     </Form>
