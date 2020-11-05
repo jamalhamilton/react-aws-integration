@@ -50,7 +50,7 @@ const UpdateUser = () => {
                 }
             }).catch(err => {
                 setIsLoading(false);
-                setError("Issue on updating! ", err);
+                setError("Issue on loding user! ", err);
             })
         }
         else {
