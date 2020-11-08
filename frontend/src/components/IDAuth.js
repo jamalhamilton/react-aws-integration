@@ -29,7 +29,6 @@ class IDAuth extends React.Component {
 
         let query = new URLSearchParams(props.location.search);
         let userToken = query.get('token');
-
         if (!userToken) {
             window.location.href = '/';
             return;
@@ -102,17 +101,21 @@ class IDAuth extends React.Component {
         fetch(config.api.getUser, {
             headers: { 'Content-Type': 'application/json' },
             method: "POST",
-            body: JSON.stringify({ token: userToken }),
+            body: JSON.stringify({ token: "mQXA8d7YQGsj5FLgDstt" }),
         }).then(res => res.json()).then(data => {
-            if (data.status) {
-                that.state.photo_source = data.data.id + '_face.jpg';
-                that.state.photo_target = data.data.id + '_id.jpg';
+            debugger
+            if (data['status']) {
+                if (data.status) {
+                    that.state.photo_source = data.data.id + '_face.jpg';
+                    that.state.photo_target = data.data.id + '_id.jpg';
+                }
+                that.setState({
+                    uploadedPhoto: data.data.verify_photo,
+                    uploadedId: data.data.verify_idcard,
+                });
             }
-            that.setState({
-                uploadedPhoto: data.data.verify_photo,
-                uploadedId: data.data.verify_idcard,
-            });
         }).catch(error => {
+            debugger
             window.location.href="/";
         });
 
@@ -126,7 +129,7 @@ class IDAuth extends React.Component {
             fetch(config.api.getUser, {
                 headers: { 'Content-Type': 'application/json' },
                 method: "POST",
-                body: JSON.stringify({ token: userToken }),
+                body: JSON.stringify({ token: "mQXA8d7YQGsj5FLgDstt" }),
             }).then(res => res.json()).then(data => {
                 that.setState({
                     uploadedPhoto: data.data.verify_photo,
@@ -134,6 +137,7 @@ class IDAuth extends React.Component {
                 });
                 if (data.data.verify_idcard) clearInterval(that.state.apiTmr);
             }).catch(error => {
+                debugger
                 window.location.href="/";
             });
         }, 3000);
@@ -430,7 +434,7 @@ console.log(data);
 
         return (
             <Container style={{ textAlign: "center" }}>
-                {(authStep === 0) && (
+                {true && (
                     <div>
                         <Row style={{ marginTop: 50 }}>
                             <Col>

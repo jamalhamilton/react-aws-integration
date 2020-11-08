@@ -32,5 +32,6 @@ export default {
         adminGetAllUsers: '/api/admin/getAllUsers',
         adminDeleteUser: '/api/admin/deleteUser',
         adminUpdate: '/api/admin/updateUser',
-    }
+    },
+    vouched_PUBLIC_KEY: 'V~F_e~g0ySKtaos#PX.I9Vo4P*1Kxh'
 }
