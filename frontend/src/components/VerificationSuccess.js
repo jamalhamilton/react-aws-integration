@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Spinner } from "react-bootstrap";
+import { Button, Row, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, useLocation, useHistory } from "react-router-dom";
 import config from "../config/front_config";
 import { Container } from "react-bootstrap";
@@ -67,17 +67,17 @@ const VerificationSuccess = () => {
                     }}>
                     <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
                 </div> : null}
-                <div>
+                <Row style={{ justifyContent: 'center' }}>
                     <ul class="progressbar">
                         <li class="active">Identity Verification</li>
                         <li class="active">Photo Verification</li>
-                        <li class="active">ID Verification</li>
-                        <li class="active">Verification completed successfully</li>
+                        <li class="active">Verification finished</li>
                     </ul>
-                </div>
-                <div style={{ paddingTop: 200 }}>
+                </Row>
+                <div style={{ paddingTop: 200, paddingBottom: 20 }}>
                     <h1>Congratulation!, you have completed verification process</h1>
                 </div>
+                <Button variant="primary" onClick={() => window.open(user['social_link'], "_blank")}>Proceed to interview</Button>
             </Container>
         </Router>
     );

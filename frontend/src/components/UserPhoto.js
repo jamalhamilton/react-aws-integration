@@ -158,7 +158,7 @@ const UserPhoto = () => {
 
     const photoContainer = () => {
         return (
-            <div>
+            <>
                 <Row style={{ marginTop: 50 }}>
                     <Col>
                         <h1>Step 2. Verify Your Information</h1>
@@ -194,7 +194,7 @@ const UserPhoto = () => {
                         }
                     </Col>
                 </Row>
-            </div>
+            </>
         );
     }
 
@@ -214,14 +214,15 @@ const UserPhoto = () => {
                     }}>
                     <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
                 </div> : null}
-                <ul class="progressbar">
-                    <li class="active">Identity Verification</li>
-                    <li>Photo Verification</li>
-                    <li>ID Verification</li>
-                    <li>Verification completed successfully</li>
-                </ul>
+                <Row style={{justifyContent: 'center' }}>
+                    <ul class="progressbar">
+                        <li class="active">Identity Verification</li>
+                        <li>Photo Verification</li>
+                        <li>Verification finished</li>
+                    </ul>
+                </Row>
                 {photoContainer()}
-                {uploadingProgress > 0 && <ProgressBar now={uploadingProgress} label={uploadingProgress + '%'} animated/>}
+                {uploadingProgress > 0 && <ProgressBar now={uploadingProgress} label={uploadingProgress + '%'} animated />}
             </Container>
         </Router>
     );

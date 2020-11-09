@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, useLocation, useHistory } from "react-router-dom";
 import config from "../config/front_config";
 
@@ -122,13 +122,16 @@ const VerificationBase = () => {
                         alert('All your verification has been completed!.');
                         history.push('/verifisuccess?token=' + token);
                     } else if (!(data['data']['verify_photo'])) {
-                        history.push('/userphoto?token='+token);
+                        history.push('/userphoto?token=' + token);
                     } else {
-                        history.push('/userid?token='+token);
+                        history.push('/userid?token=' + token);
                     }
                 }
+            } else {
+                alert('Sorry, User not found!.');
             }
         }).catch(err => {
+            alert('Sorry, User not found!.');
             setIsLoading(false);
         })
     }
@@ -145,7 +148,7 @@ const VerificationBase = () => {
         }).then(res => res.json()).then(data => {
             setIsLoading(false);
             if (data && data['status']) {
-                history.push('/userphoto?token='+token);
+                history.push('/userphoto?token=' + token);
             } else {
                 alert('Sorry, for the Inconvenience caused by us!. please try again in some time.');
             }
@@ -157,26 +160,27 @@ const VerificationBase = () => {
 
     return (
         <Router>
-            <Container style={{textAlign: 'center'}}>
-            {isLoading ? <div
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    textAlign: 'center',
-                    backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                    zIndex: 999
-                }}>
-                <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-            </div> : null}
-            <ul class="progressbar">
-                <li>Identity Verification</li>
-                <li>Photo Verification</li>
-                <li>ID Verification</li>
-                <li>Verification completed successfully</li>
-            </ul>
+            <Container style={{ textAlign: 'center' }}>
+                {isLoading ? <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                        zIndex: 999
+                    }}>
+                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                </div> : null}
+                <Row style={{justifyContent: 'center' }}>
+                    <ul class="progressbar">
+                        <li>Identity Verification</li>
+                        <li>Photo Verification</li>
+                        <li>Verification finished</li>
+                    </ul>
+                </Row>
             </Container>
             <div style={{ marginTop: 100 }}>
                 <div id='vouched-element' />
@@ -192,7 +196,7 @@ const VerificationBase = () => {
                     </ul>
                 </div>
                 : null}
-                {/* <p onClick={() => updateUserAndNavToPhotoVerify()}>click</p> */}
+            {/* <p onClick={() => updateUserAndNavToPhotoVerify()}>click</p> */}
         </Router>
     );
 }

@@ -79,7 +79,7 @@ const UserId = () => {
                         alert('All your verification has been completed!.');
                         history.push('/verifisuccess?token=' + token);
                     } else if (!(data['data']['verify_photo'])) {
-                        history.push('/userphoto?token='+token);
+                        history.push('/userphoto?token=' + token);
                     }
                 } else {
                     history.push('/verifyID?token=' + token);
@@ -236,10 +236,10 @@ const UserId = () => {
 
     const photoContainer = () => {
         return (
-            <div>
+            <>
                 <Row style={{ marginTop: 50 }}>
                     <Col>
-                        <h1>Step 3. Verify Your Information</h1>
+                        <h1>Step 2. Verify Your Information</h1>
                     </Col>
                 </Row>
                 <Divider />
@@ -253,7 +253,7 @@ const UserId = () => {
                                 </Row>
                                 <Row style={{ justifyContent: 'space-evenly' }}>
                                     <Button style={{ marginLeft: 30, display: 'inline-block' }} variant="warning" onClick={() => uploadPhoto()}>Upload</Button>
-                                <Button variant="primary" onClick={() => setIsPhotoTaken(false)}>Retake Photo</Button>
+                                    <Button variant="primary" onClick={() => setIsPhotoTaken(false)}>Retake Photo</Button>
                                 </Row>
                             </div>
                             :
@@ -272,7 +272,7 @@ const UserId = () => {
                         }
                     </Col>
                 </Row>
-            </div>
+            </>
         );
     }
 
@@ -292,12 +292,13 @@ const UserId = () => {
                     }}>
                     <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
                 </div> : null}
-                <ul class="progressbar">
-                    <li class="active">Identity Verification</li>
-                    <li class="active">Photo Verification</li>
-                    <li>ID Verification</li>
-                    <li>Verification completed successfully</li>
-                </ul>
+                <Row style={{ justifyContent: 'center' }}>
+                    <ul class="progressbar">
+                        <li class="active">Identity Verification</li>
+                        <li>Photo Verification</li>
+                        <li>Verification finished</li>
+                    </ul>
+                </Row>
                 {photoContainer()}
                 {uploadingProgress > 0 && <ProgressBar now={uploadingProgress} label={uploadingProgress + '%'} animated />}
             </Container>

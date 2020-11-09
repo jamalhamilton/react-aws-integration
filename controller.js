@@ -54,7 +54,7 @@ controller.sendMail = (req, res, next) => {
         .then(data => {
             if (data && data.id && data.token) {
                 var userInfo = data;
-                var verifyURL = config.serverRoot + config.verifyURL + "?token=" + userInfo.token + "8";
+                var verifyURL = config.serverRoot + config.verifyURL + "?token=" + userInfo.token;
                 console.log(verifyURL);
                 console.log('userInfo', userInfo.candidate_name_first);
                 var mailOptions = {
