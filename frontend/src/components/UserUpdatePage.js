@@ -178,6 +178,11 @@ const UpdateUser = () => {
                                         <Form.Label>Verify IDcard</Form.Label>
                                         <Form.Control defaultValue={user['verify_idcard']} onChange={(event) => handleChange(event.target.value, 'verify_idcard')} />
                                     </Form.Group>
+
+                                    <Form.Group>
+                                        <Form.Label>Vouched verification</Form.Label>
+                                        <Form.Control defaultValue={user['id_verification_result']} onChange={(event) => handleChange(event.target.value, 'id_verification_result')} />
+                                    </Form.Group>
                                 </Form>
                                 <Button style={{ margin: 10 }} onClick={() => update()} variant="primary">Update</Button>
                             </Col>

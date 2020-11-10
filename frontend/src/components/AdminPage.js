@@ -155,6 +155,7 @@ const AdminPage = () => {
                         <th>Interviewer Last Name</th>
                         <th>Interviewer Email</th>
                         <th>Similarity</th>
+                        <th>Vouched verification</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -176,6 +177,7 @@ const AdminPage = () => {
                                     <td>{user['interviewer_name_last'] ? user['interviewer_name_last'] : '--'}</td>
                                     <td>{user['interviewer_email'] ? user['interviewer_email'] : '--'}</td>
                                     <td>{user['similarity'] ? user['similarity'] : '--'}</td>
+                                    <td>{user['id_verification_result'] ? user['id_verification_result'] : '--'}</td>
                                     <td>
                                         <ButtonGroup size="sm">
                                             <Button onClick={() => history.push(`/admin/update/${user['token']}`)}><i className="fa fa-pencil-square-o"></i></Button>
