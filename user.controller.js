@@ -3,6 +3,8 @@ const AWS = require('aws-sdk');
 AWS.config.update(config.aws_remote_config);
 const docClient = new AWS.DynamoDB.DocumentClient();
 const { v4: uuidv4 } = require('uuid');
+const Client = require("@vouched.id/vouched-nodejs").default;
+const VouchedClient = Client("~!hT~I1GMw!Aoq~zXCWz9x5Z2o6r5x");
 
 const generateRandomString = (len) => {
     if (!len) len = 8;
@@ -138,6 +140,48 @@ const getUser = (req, res) => {
         });
 };
 
+const vouchedVerification = async (req, res) => {
+    const userData = req.body;
+    let errMsg;
+    if (!userData.verificationToken) errMsg = 'Verification Info is not provided.';
+    if (errMsg) {
+        res.send({ status: false, data: errMsg });
+        return;
+    }
+    try {
+        const jobs = await VouchedClient.jobs({
+            page: 1,
+            pageSize: 1,
+            type: 'id-verification',
+            status: 'completed',
+            token: userData.verificationToken,
+            sortBy: 'submitted',
+            sortOrder: 'desc',
+            withPhotos: true
+        });
+        if (jobs && jobs.items && jobs.items.length) {
+            let photoToUpdate;
+            jobs.items[0].errors = undefined;
+            for (let i = 0; i < jobs.items.length; i++) {
+                if (!(jobs.items[i].errors && jobs.items[i].errors.length)) {
+                    if (jobs.items[i].request && jobs.items[i].request.parameters && jobs.items[i].request.parameters.idPhoto) {
+                        photoToUpdate = jobs.items[i].request.parameters.idPhoto;
+                        break;
+                    }
+                }
+            }
+            res.send({
+                status: true,
+                data: photoToUpdate
+            });
+        }
+    }
+    catch (err) {
+        res.send({ status: false, data: err });
+        return;
+    }
+}
+
 const updateUserInfo = (req, res) => {
     let errMsg = '';
     const userData = req.body;
@@ -197,5 +241,6 @@ module.exports = {
     getUser,
     registerUser,
     updateUserInfo,
-    getUserInfo
+    getUserInfo,
+    vouchedVerification
 }

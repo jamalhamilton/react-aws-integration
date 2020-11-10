@@ -12,6 +12,7 @@ router.post('/registerUser', bodyParser.json(), userController.registerUser);
 router.post('/updateUserInfo', bodyParser.json(), userController.updateUserInfo);
 router.post('/sendMail', bodyParser.json(), controller.sendMail);
 router.post('/sendResultMail', bodyParser.json(), controller.sendResultMail);
+router.post('/vouchedVerification', bodyParser.json(), userController.vouchedVerification);
 
 
 // admin routes

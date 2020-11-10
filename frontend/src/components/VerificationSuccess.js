@@ -34,11 +34,7 @@ const VerificationSuccess = () => {
                 setUser(data['data']);
                 if (data['data']['id_verification_result'] == "verified") {
                     if (!(data['data']['verify_result'])) {
-                        if (data['data']['verify_photo']) {
-                            history.push('/userid?token=' + token);
-                        } else {
-                            history.push('/userphoto?token=' + token);
-                        }
+                        history.push('/userphoto?token=' + token);
                     }
                 } else {
                     history.push('/verifyID?token=' + token);

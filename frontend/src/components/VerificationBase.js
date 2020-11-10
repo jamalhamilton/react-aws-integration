@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, useLocation, useHistory } from "react-router-dom";
 import config from "../config/front_config";
+import AWS from "aws-sdk";
 
 const VerificationBase = () => {
 
     const [verificationErrors, setVerificationErrors] = useState();
     const [isLoading, setIsLoading] = useState();
     const history = useHistory();
+    const [user, setUser] = useState();
 
     const { search } = useLocation();
     const query = new URLSearchParams(search);
@@ -94,9 +96,73 @@ const VerificationBase = () => {
                 setVerificationErrors(errors);
             } else {
                 alert("ID Verification completed successfully!");
-                updateUserAndNavToPhotoVerify();
+                getPhotoIDandUpdateToAWS(verificationResult['token']);
             }
         }
+    }
+
+    const getPhotoIDandUpdateToAWS = (verificationToken) => {
+        setIsLoading(true);
+        fetch(config.api.getPhotoId, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({
+                verificationToken
+            })
+        }).then(res => res.json()).then(data => {
+            setIsLoading(false);
+            if (data && data["status"]) {
+                uploadPhotoID(data["data"]);
+            } else {
+                alert('Sorry, Verification not compleded!.');
+            }
+        })
+            .catch(err => {
+                alert('Sorry, Verification not compleded!.');
+                setIsLoading(false);
+            });
+    }
+
+    const uploadPhotoID = (imageToUpload) => {
+        AWS.config.update({
+            accessKeyId: config.aws.accessKey,
+            secretAccessKey: config.aws.secretKey,
+            region: config.aws.region
+        })
+        const bucket = new AWS.S3({ params: { Bucket: config.aws.bucket } });
+        const fileName = user.id + '_id.jpg';
+        const imgFileToUpload = new File([imageToUpload], fileName);
+        const params = { Key: imgFileToUpload.name, ContentType: "image/jpeg", Body: imgFileToUpload };
+        setIsLoading(true);
+        bucket.putObject(params, function (err, data) {
+            setIsLoading(false);
+            if (!err) {
+                setIsLoading(true);
+                fetch(config.api.updateUserInfo, {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    body: JSON.stringify({
+                        token,
+                        verify_idcard: fileName,
+                        id_verification_result: "verified"
+                    }),
+                }).then(res => res.json()).then(data => {
+                    setIsLoading(false);
+                    if (data.status) {
+                        history.push('/userphoto?token=' + token);
+                    } else {
+                        alert('Sorry, for the Inconvenience caused by us!. please try again in some time.');
+                    }
+                }).catch(err => {
+                    setIsLoading(false);
+                    alert('photo upload faild!');
+                });
+            } else {
+                alert((err && err.message) ? err.message : 'photo upload faild!');
+            }
+        });
     }
 
     useEffect(() => {
@@ -117,14 +183,13 @@ const VerificationBase = () => {
         }).then(res => res.json()).then(data => {
             setIsLoading(false);
             if (data && data['data'] && data['data']['token']) {
+                setUser(data['data']);
                 if (data['data']['id_verification_result'] == "verified") {
                     if (data['data']['verify_result']) {
                         alert('All your verification has been completed!.');
                         history.push('/verifisuccess?token=' + token);
-                    } else if (!(data['data']['verify_photo'])) {
-                        history.push('/userphoto?token=' + token);
                     } else {
-                        history.push('/userid?token=' + token);
+                        history.push('/userphoto?token=' + token);
                     }
                 }
             } else {
@@ -133,28 +198,6 @@ const VerificationBase = () => {
         }).catch(err => {
             alert('Sorry, User not found!.');
             setIsLoading(false);
-        })
-    }
-
-    const updateUserAndNavToPhotoVerify = () => {
-        setIsLoading(true);
-        fetch(config.api.updateUserInfo, {
-            headers: { 'Content-Type': 'application/json' },
-            method: "POST",
-            body: JSON.stringify({
-                token,
-                id_verification_result: 'verified'
-            }),
-        }).then(res => res.json()).then(data => {
-            setIsLoading(false);
-            if (data && data['status']) {
-                history.push('/userphoto?token=' + token);
-            } else {
-                alert('Sorry, for the Inconvenience caused by us!. please try again in some time.');
-            }
-        }).catch(err => {
-            setIsLoading(false);
-            alert('Sorry, for the Inconvenience caused by us!. please try again in some time.');
         })
     }
 
@@ -174,7 +217,7 @@ const VerificationBase = () => {
                     }}>
                     <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
                 </div> : null}
-                <Row style={{justifyContent: 'center' }}>
+                <Row style={{ justifyContent: 'center' }}>
                     <ul class="progressbar">
                         <li>Identity Verification</li>
                         <li>Photo Verification</li>
@@ -192,7 +235,7 @@ const VerificationBase = () => {
                 <div style={{ marginLeft: '40%', color: 'red' }}>
                     <h2>Verification Not completed!</h2>
                     <ul style={{ fontSize: 25 }}>
-                        {verificationErrors.map(error => <li>{error.message}</li>)}
+                        {verificationErrors.map((error, index) => <li key={index}>{error.message}</li>)}
                     </ul>
                 </div>
                 : null}

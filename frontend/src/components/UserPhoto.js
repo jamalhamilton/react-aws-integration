@@ -78,8 +78,6 @@ const UserPhoto = () => {
                     if (data['data']['verify_result']) {
                         alert('All your verification has been completed!.');
                         history.push('/verifisuccess?token=' + token);
-                    } else if (data['data']['verify_photo']) {
-                        history.push('/userid?token=' + token);
                     }
                 } else {
                     history.push('/verifyID?token=' + token);
@@ -127,9 +125,10 @@ const UserPhoto = () => {
                     }),
                 }).then(res => res.json()).then(data => {
                     setIsLoading(false);
+                    setUser(data['data']);
                     if (data.status) {
                         alert('photo uploaded successfully!');
-                        history.push('/userid?token=' + token);
+                        verificationResult();
                     } else {
                         alert('photo upload faild!');
                     }
@@ -144,6 +143,84 @@ const UserPhoto = () => {
             const percent = parseInt(progress.loaded / progress.total * 100);
             setUploadingProgress(percent);
         });
+    }
+
+    const verificationResult = () => {
+        const bucket = config.aws.bucket;
+        const photoSrc = user.verify_photo;
+        const idSrc = user.verify_idcard;
+        if (photoSrc && idSrc) {
+            setIsLoading(true);
+            AWS.config.update({
+                accessKeyId: config.aws.accessKey,
+                secretAccessKey: config.aws.secretKey,
+                region: config.aws.region
+            })
+            const client = new AWS.Rekognition();
+            const params = {
+                SourceImage: {
+                    S3Object: {
+                        Bucket: bucket,
+                        Name: photoSrc,
+                    },
+                },
+                TargetImage: {
+                    S3Object: {
+                        Bucket: bucket,
+                        Name: idSrc,
+                    },
+                },
+                SimilarityThreshold: 70,
+            };
+            client.compareFaces(params, function (err, response) {
+                setIsLoading(false);
+                if (err) {
+                    alert('You didn\'t upload exact personal photo.');
+                    return;
+                }
+                if (!response.FaceMatches.length) {
+                    alert('User and ID is not matched!');
+                    return;
+                }
+                response.FaceMatches.forEach((data) => {
+                    const similarity = data.Similarity;
+                    setIsLoading(true);
+                    fetch(config.api.updateUserInfo, {
+                        headers: { 'Content-Type': 'application/json' },
+                        method: "POST",
+                        body: JSON.stringify({
+                            token,
+                            verify_result: similarity
+                        }),
+                    }).then(res => res.json()).then(data => {
+                        setIsLoading(false);
+                        if (data.status) {
+                            fetch(config.api.sendResultMail, {
+                                headers: { 'Content-Type': 'application/json' },
+                                method: "POST",
+                                body: JSON.stringify({
+                                    token,
+                                    similarity: similarity
+                                }),
+                            }).then(response => response.json())
+                                .then(data => {
+                                    if (data.status) {
+                                        alert('verification success!');
+                                        history.push('/verifisuccess?token=' + token);
+                                    }
+                                    else {
+                                        alert('Error sending mail!.');
+                                    }
+                                });
+                        } else {
+                            alert('Error on verification!');
+                        }
+                    }).catch(err => {
+                        setIsLoading(false);
+                    });
+                });
+            });
+        }
     }
 
     const dataURItoBlob = (dataURI) => {
