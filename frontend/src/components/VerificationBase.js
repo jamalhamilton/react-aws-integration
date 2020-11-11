@@ -95,7 +95,6 @@ const VerificationBase = () => {
             if (errors && errors.length) {
                 setVerificationErrors(errors);
             } else {
-                alert("ID Verification completed successfully!");
                 console.log("verificationResult", verificationResult);
                 getPhotoIDandUpdateToAWS(verificationResult['token']);
             }
@@ -133,7 +132,7 @@ const VerificationBase = () => {
             region: config.aws.region
         })
         const bucket = new AWS.S3({ params: { Bucket: config.aws.bucket } });
-        const fileName = user.id + '_id.jpg';
+        const fileName = token + '_id.jpg';
         const imgFileToUpload = new File([imageToUpload], fileName);
         const params = { Key: imgFileToUpload.name, ContentType: "image/jpeg", Body: imgFileToUpload };
         setIsLoading(true);
