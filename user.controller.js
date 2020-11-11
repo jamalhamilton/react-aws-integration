@@ -169,10 +169,17 @@ const vouchedVerification = async (req, res) => {
                     }
                 }
             }
-            res.send({
-                status: true,
-                data: photoToUpdate
-            });
+            if (photoToUpdate) {
+                res.send({
+                    status: true,
+                    data: photoToUpdate
+                });
+            } else {
+                res.send({ status: false, message: "No ID found!" });
+            }  
+        } else {
+            res.send({ status: false, message: "No ID found!" });
+            return;
         }
     }
     catch (err) {
