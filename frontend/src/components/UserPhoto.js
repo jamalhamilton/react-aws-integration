@@ -125,8 +125,8 @@ const UserPhoto = () => {
                     }),
                 }).then(res => res.json()).then(data => {
                     setIsLoading(false);
-                    setUser(data['data']);
                     if (data.status) {
+                        setUser(data);
                         alert('photo uploaded successfully!');
                         verificationResult();
                     } else {
