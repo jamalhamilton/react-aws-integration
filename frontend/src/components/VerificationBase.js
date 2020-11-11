@@ -96,6 +96,7 @@ const VerificationBase = () => {
                 setVerificationErrors(errors);
             } else {
                 alert("ID Verification completed successfully!");
+                console.log("verificationResult", verificationResult);
                 getPhotoIDandUpdateToAWS(verificationResult['token']);
             }
         }
