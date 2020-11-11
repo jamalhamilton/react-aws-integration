@@ -161,7 +161,6 @@ const vouchedVerification = async (req, res) => {
         });
         if (jobs && jobs.items && jobs.items.length) {
             let photoToUpdate;
-            jobs.items[0].errors = undefined;
             for (let i = 0; i < jobs.items.length; i++) {
                 if (!(jobs.items[i].errors && jobs.items[i].errors.length)) {
                     if (jobs.items[i].request && jobs.items[i].request.parameters && jobs.items[i].request.parameters.idPhoto) {
