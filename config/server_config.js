@@ -14,13 +14,13 @@ module.exports = {
         service: 'gmail',
         auth: {
             user: 'donotreply@interverify.co',
-            pass: 'GoodDay)(*1',
+            pass: '',
         }
     },
     aws_remote_config: {
-        accessKeyId: 'AKIAVJKPVCLEKM2YG33J',
-        secretAccessKey: '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',
+        accessKeyId: 'xx',
+        secretAccessKey: 'xx',
         region: 'us-east-2'
     },
-    jwtSecretKey: "jfvt14FcqvsA3ToJMl9lrE"
+    jwtSecretKey: "xx"
 }
