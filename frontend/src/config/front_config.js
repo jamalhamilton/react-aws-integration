@@ -1,20 +1,20 @@
 const siteUrl = "https://interverify.co";
 //const siteUrl = "http://localhost:3000/";
 const redirectUrl = siteUrl + '/idme_code'
-const clientId = "xxxx"
+const clientId = "34d614b8c18543abd81f338aaeb7b0de"
 
 export default {
     siteUrl: siteUrl,
     idme: {
         cliendId: clientId,
-        clientSecret: "xxx",
+        clientSecret: "949e15f3b1dace8c2a3c685032d4e28d",
         redirectUrl: redirectUrl,
         authEndPoint: "https://api.id.me/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + redirectUrl + "&response_type=token&scope=loa3",
         
     },
     aws: {
-        accessKey: "xxx",
-        secretKey: "xxxx",
+        accessKey: "AKIAVJKPVCLEKM2YG33J",
+        secretKey: "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",
         region: "us-east-2",
         bucket: "idauth"
     },

@@ -11,3 +11,4 @@ yarn-error.log
 /frontend/node_modules
 /config/live.js
 /config/local.js
+/frontend/src/config/front_config.js
