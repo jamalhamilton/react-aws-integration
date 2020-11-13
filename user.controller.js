@@ -25,70 +25,29 @@ const registerUser = (req, res) => {
         res.send({ status: false, data: errMsg });
         return;
     }
+    const token = generateRandomString(20);
+    const id = uuidv4();
     const params = {
         TableName: 'users',
-        FilterExpression: "#cg = :data",
-        ExpressionAttributeNames: {
-            "#cg": "candidate_email",
-        },
-        ExpressionAttributeValues: {
-            ":data": userData.candidate_email,
+        Item: {
+            token,
+            ...userData,
+            id
         }
     };
-    getUserInfo(params)
-        .then(data => {
-            if (data && data.id && data.token) {
-                const params = {
-                    TableName: 'users',
-                    Item: {
-                        ...data,
-                        ...userData
-                    }
-                };
-                docClient.put(params, function (err, data) {
-                    if (err) {
-                        res.send({ status: false, data: err });
-                        return;
-                    } else {
-                        res.send({
-                            status: true,
-                            data: 'Updated',
-                            ...params.Item
-                        });
-                    }
-                });
-            } else {
-                const token = generateRandomString(20);
-                const id = uuidv4();
-                const params = {
-                    TableName: 'users',
-                    Item: {
-                        token,
-                        ...userData,
-                        id
-                    }
-                };
-                docClient.put(params, function (err, data) {
-                    if (err) {
-                        res.send({ status: false, data: err });
-                        return;
-                    } else {
-                        res.send({
-                            status: true,
-                            data: 'Inserted',
-                            token,
-                            id
-                        });
-                    }
-                });
-            }
-        })
-        .catch(err => {
+    docClient.put(params, function (err, data) {
+        if (err) {
+            res.send({ status: false, data: err });
+            return;
+        } else {
             res.send({
-                success: false,
-                message: err
+                status: true,
+                data: 'Inserted',
+                token,
+                id
             });
-        });
+        }
+    });
 };
 
 
@@ -176,7 +135,7 @@ const vouchedVerification = async (req, res) => {
                 });
             } else {
                 res.send({ status: false, message: "No ID found!" });
-            }  
+            }
         } else {
             res.send({ status: false, message: "No ID found!" });
             return;

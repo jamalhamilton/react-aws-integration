@@ -85,6 +85,7 @@ const UserPhoto = () => {
             }
         }).catch(err => {
             setIsLoading(false);
+            alert('Sorry, User not found!.');
         })
     }
 
@@ -108,7 +109,7 @@ const UserPhoto = () => {
         })
         const bucket = new AWS.S3({ params: { Bucket: config.aws.bucket } });
         const imageToUpload = dataURItoBlob(imageSrc);
-        const fileName = user.id + '_face.jpg';
+        const fileName = token + '_face.jpg';
         const imgFileToUpload = new File([imageToUpload], fileName);
         const params = { Key: imgFileToUpload.name, ContentType: "image/jpeg", Body: imgFileToUpload };
         setUploadingProgress(.1);
@@ -146,6 +147,7 @@ const UserPhoto = () => {
     }
 
     const verificationResult = () => {
+        if (!(user && user.verify_photo && user.verify_idcard)) { alert("some of the required user information nor found!, please try again."); return; }
         const bucket = config.aws.bucket;
         const photoSrc = user.verify_photo;
         const idSrc = user.verify_idcard;
@@ -291,7 +293,7 @@ const UserPhoto = () => {
                     }}>
                     <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
                 </div> : null}
-                <Row style={{justifyContent: 'center' }}>
+                <Row style={{ justifyContent: 'center' }}>
                     <ul class="progressbar">
                         <li class="active">Identity Verification</li>
                         <li>Photo Verification</li>
