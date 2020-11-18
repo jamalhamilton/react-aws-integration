@@ -47,35 +47,70 @@ const VerificationSuccess = () => {
         })
     }
 
+    const proceed = () => {
+        if (user) {
+            window.open(user['social_link'], "_blank");
+        } else {
+            alert('User not found!.');
+        }
+    }
+
     return (
-        <Router>
-            <Container style={{ textAlign: "center" }}>
-                {isLoading ? <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                        zIndex: 999
-                    }}>
-                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-                </div> : null}
-                <Row style={{ justifyContent: 'center' }}>
-                    <ul class="progressbar">
-                        <li class="active">Identity Verification</li>
-                        <li class="active">Photo Verification</li>
-                        <li class="active">Verification finished</li>
-                    </ul>
-                </Row>
-                <div style={{ paddingTop: 200, paddingBottom: 20 }}>
-                    <h1>Congratulation!, you have completed verification process</h1>
+        <div class="innerPage ptb_150">
+            <section>
+                <div class="container">
+                    {isLoading ? <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                            zIndex: 999
+                        }}>
+                        <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                    </div> : null}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="index.html" class="logoIn mb-5">interverify</a>
+                                <ul class="processHead">
+                                    <li class="active">
+                                        <span class="round_no">1</span>
+                                        <span class="t__">ID Verification</span>
+                                    </li>
+                                    <li class="active">
+                                        <span class="round_no">2</span>
+                                        <span class="t__">Photo Verification</span>
+                                    </li>
+                                    <li class="active" >
+                                        <span class="round_no">3</span>
+                                        <span class="t__">Finished</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="whiteWrap">
+                                <h3 class="text-center">Photo Verification</h3>
+                                <div class="row form___Row pt-5">
+                                    <div class="col-md-12 col-12 ">
+                                        <div class="wrap400">
+                                            <p>Verification completed Please click the link below to proceed to your Interview</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12 btnBootomCol">
+                                        <div class="form-group text-center pt-5">
+                                            <a onClick={() => proceed()} class="btn_1">Proceed</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <Button variant="primary" onClick={() => window.open(user['social_link'], "_blank")}>Proceed to interview</Button>
-            </Container>
-        </Router>
+            </section>
+        </div>
     );
 }
 

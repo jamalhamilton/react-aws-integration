@@ -40,7 +40,7 @@ const VerificationBase = () => {
             },
             content: {
                 cameraButton: 'Take a Photo',
-                crossDeviceTitle: 'Identity Verification',
+                crossDeviceTitle: 'ID Verification',
                 crossDeviceInstructions: 'We need to verify your identity. This requires government-issued photo ID as well as selfie. Please follow the instructions below to continue the verification process on your phone',
                 crossDeviceSuccess: 'Verification is complete, continue on your desktop',
                 review: 'Verification complete',
@@ -59,20 +59,13 @@ const VerificationBase = () => {
             },
             theme: {
                 name: 'verbose',
-                font: 'Open Sans',
-                fontColor: '#413d3a',
+                font: "'Avenir', sans-serif",
+                fontColor: '#646769',
                 iconLabelColor: '#413d3a',
                 bgColor: '#FFF',
                 baseColor: '#62ACDE',
                 navigationDisabledBackground: '#b3def1',
                 navigationDisabledText: '#a3d7ee',
-                // logo: {
-                //     src: 'https://static.vouched.id/customers/blocktriangle/logo.jpg',
-                //     style: {
-                //         maxWidth: 150,
-                //         marginBottom: 30
-                //     }
-                // },
                 navigationActiveText: '#413d3a',
                 iconColor: '#f6f5f3',
                 iconBackground: '#62ACDE'
@@ -213,45 +206,73 @@ const VerificationBase = () => {
     }
 
     return (
-        <Router>
-            <Container style={{ textAlign: 'center' }}>
-                {isLoading ? <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                        zIndex: 999
-                    }}>
-                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-                </div> : null}
-                <Row style={{ justifyContent: 'center' }}>
-                    <ul class="progressbar">
-                        <li>Identity Verification</li>
-                        <li>Photo Verification</li>
-                        <li>Verification finished</li>
-                    </ul>
-                </Row>
-            </Container>
-            <div style={{ marginTop: 100 }}>
-                <div id='vouched-element' />
-                <div style={{ marginLeft: '40%' }}>
-                    <h4>Scan and open the link which is on QR code!.</h4>
+        <div class="innerPage ptb_150">
+            {isLoading ? <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                    zIndex: 999
+                }}>
+                <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+            </div> : null}
+            <section class="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="/" class="logoIn mb-5">interverify</a>
+                                <ul class="processHead">
+                                    <li class="active">
+                                        <span class="round_no">1</span>
+                                        <span class="t__">ID Verification</span>
+                                    </li>
+                                    <li >
+                                        <span class="round_no">2</span>
+                                        <span class="t__">Photo Verification</span>
+                                    </li>
+                                    <li >
+                                        <span class="round_no">3</span>
+                                        <span class="t__">Finished</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="whiteWrap">
+
+                                {/* <h3 class="text-center">ID Verification</h3>
+                                <div class="row form___Row pt-5"> */}
+                                {/* <div class="col-md-12 col-12 qrCol__">
+                                        <div class="wrap400 ml-auto yourIDM50">
+                                            <h4>QR code from vouched</h4>
+                                            <div class="qrHolder">
+                                                <img src="images/qrCode.png" />
+                                            </div>
+                                            <div>
+                                                <p>Text from vouched</p>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div>*/}
+                                <div id='vouched-element' />
+                                {(verificationErrors && verificationErrors.length) ?
+                                    <div style={{ color: 'red', marginTop: 20 }}>
+                                        <h4 class="text-center">Verification Not completed!</h4>
+                                        <ul class="text-center" style={{ fontSize: 25 }}>
+                                            {verificationErrors.map((error, index) => <li key={index}>{error.message}</li>)}
+                                        </ul>
+                                    </div>
+                                    : null}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {(verificationErrors && verificationErrors.length) ?
-                <div style={{ marginLeft: '40%', color: 'red' }}>
-                    <h2>Verification Not completed!</h2>
-                    <ul style={{ fontSize: 25 }}>
-                        {verificationErrors.map((error, index) => <li key={index}>{error.message}</li>)}
-                    </ul>
-                </div>
-                : null}
-            {/* <p onClick={() => updateUserAndNavToPhotoVerify()}>click</p> */}
-        </Router>
+            </section>
+            {/* <div class="submitMsg"><img src="images/checked_ic.svg" />ID has been Submitted</div> */}
+        </div>
     );
 }
 

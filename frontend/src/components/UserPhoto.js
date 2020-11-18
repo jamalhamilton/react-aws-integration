@@ -26,7 +26,6 @@ const UserPhoto = () => {
     const [isPhotoTaken, setIsPhotoTaken] = useState();
     const history = useHistory();
     const [user, setUser] = useState();
-    const [uploadingProgress, setUploadingProgress] = useState();
     const webcamRef = React.createRef();
 
     const { search } = useLocation();
@@ -112,9 +111,9 @@ const UserPhoto = () => {
         const fileName = token + '_face.jpg';
         const imgFileToUpload = new File([imageToUpload], fileName);
         const params = { Key: imgFileToUpload.name, ContentType: "image/jpeg", Body: imgFileToUpload };
-        setUploadingProgress(.1);
+        setIsLoading(true);
         bucket.putObject(params, function (err, data) {
-            setUploadingProgress(0);
+            setIsLoading(false);
             if (!err) {
                 setIsLoading(true);
                 fetch(config.api.updateUserInfo, {
@@ -140,9 +139,6 @@ const UserPhoto = () => {
             } else {
                 alert((err && err.message) ? err.message : 'photo upload faild!');
             }
-        }).on('httpUploadProgress', function (progress) {
-            const percent = parseInt(progress.loaded / progress.total * 100);
-            setUploadingProgress(percent);
         });
     }
 
@@ -235,75 +231,76 @@ const UserPhoto = () => {
         return new Blob([new Uint8Array(array)], { type: mimeString });
     }
 
-    const photoContainer = () => {
-        return (
-            <>
-                <Row style={{ marginTop: 50 }}>
-                    <Col>
-                        <h1>Step 2. Verify Your Information</h1>
-                    </Col>
-                </Row>
-                <Divider />
-                <Row style={{ marginTop: 30 }}>
-                    <Col>
-                        <h4>Your Face Photo</h4>
-                        {isPhotoTaken ?
-                            <div>
-                                <Row style={{ justifyContent: 'center' }}>
-                                    <img src={imageSrc} style={{ marginBottom: 6, alignSelf: 'center', display: 'inline-block' }} />
-                                </Row>
-                                <Row style={{ justifyContent: 'space-evenly' }}>
-                                    <Button style={{ marginLeft: 30, display: 'inline-block' }} variant="warning" onClick={() => uploadPhoto()}>Upload</Button>
-                                    <Button variant="primary" onClick={() => setIsPhotoTaken(false)}>Retake Photo</Button>
-                                </Row>
-                            </div>
-                            :
-                            <div>
-                                <Webcam
-                                    style={{ display: 'inline-block' }}
-                                    audio={false}
-                                    videoConstraints={videoConstraints}
-                                    screenshotFormat="image/jpeg"
-                                    ref={webcamRef}
-                                />
-                                <p>
-                                    <Button variant="primary" onClick={() => takePhoto()}>Take A Photo</Button>
-                                </p>
-                            </div>
-                        }
-                    </Col>
-                </Row>
-            </>
-        );
-    }
-
     return (
-        <Router>
-            <Container style={{ textAlign: "center" }}>
-                {isLoading ? <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                        zIndex: 999
-                    }}>
-                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-                </div> : null}
-                <Row style={{ justifyContent: 'center' }}>
-                    <ul class="progressbar">
-                        <li class="active">Identity Verification</li>
-                        <li>Photo Verification</li>
-                        <li>Verification finished</li>
-                    </ul>
-                </Row>
-                {photoContainer()}
-                {uploadingProgress > 0 && <ProgressBar now={uploadingProgress} label={uploadingProgress + '%'} animated />}
-            </Container>
-        </Router>
+        <div class="innerPage ptb_150">
+            <section>
+                <div class="container">
+                    {isLoading ? <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                            zIndex: 999
+                        }}>
+                        <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                    </div> : null}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="index.html" class="logoIn mb-5">interverify</a>
+                                <ul class="processHead">
+                                    <li class="active">
+                                        <span class="round_no">1</span>
+                                        <span class="t__">ID Verification</span>
+                                    </li>
+                                    <li class="active">
+                                        <span class="round_no">2</span>
+                                        <span class="t__">Photo Verification</span>
+                                    </li>
+                                    <li >
+                                        <span class="round_no">3</span>
+                                        <span class="t__">Finished</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="whiteWrap">
+                                <h3 class="text-center">Photo Verification</h3>
+                                <div class="row form___Row pt-5">
+                                    <div class="col-md-12 col-12 ">
+                                        <div class="wrap400">
+                                            <h4>Your Face Photo</h4>
+                                            <div class="photoHolder">
+                                                {isPhotoTaken ? <img src={imageSrc} /> :
+                                                    <Webcam
+                                                        style={{ height: 300, width: 380 }}
+                                                        audio={false}
+                                                        videoConstraints={videoConstraints}
+                                                        screenshotFormat="image/jpeg"
+                                                        ref={webcamRef}
+                                                    />}
+                                            </div>
+                                            <div>
+                                                <button onClick={() => isPhotoTaken ? setIsPhotoTaken(false) : takePhoto()} type="button" class="cameraBtn"><img src="images/camera_ic.svg" />{isPhotoTaken ? 'Retake Photo' : 'Take Photo'}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12 btnBootomCol">
+                                        <div class="form-group text-center pt-5">
+                                            <a onClick={() => uploadPhoto()} class="btn_1">Submit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {/* <div id="show" class="submitMsg"><img src="images/checked_ic.svg"/>ID has been Submitted</div> */}
+        </div>
     );
 }
 
