@@ -128,7 +128,7 @@ export default class RegisterForm extends React.Component {
     render() {
 
         return (
-            <div class="innerPage ptb_150">
+            <div class="innerPage ptb_100">
                 <section>
                     <div class="container">
                         <div class="row">

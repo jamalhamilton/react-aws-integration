@@ -232,7 +232,7 @@ const VerificationBase = () => {
     }
 
     return (
-        <div class="innerPage ptb_150">
+        <div class="innerPage ptb_100">
             {isLoading ? <div
                 style={{
                     position: 'fixed',

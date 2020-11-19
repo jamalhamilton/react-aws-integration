@@ -704,6 +704,7 @@ footer h6 {
 
 .innerPage {
   background-color: #EAF1FB;
+  height: 2000px;
 }
 
 .logoIn {
@@ -825,8 +826,8 @@ footer h6 {
   background-color: #fff;
   border: 1px #ECECEC solid;
   border-radius: 8px;
-  padding: 20px 35px;
-  font-size: 20px;
+  padding: 12px 22px;
+  font-size: 19px;
 }
 
 .input__::placeholder {

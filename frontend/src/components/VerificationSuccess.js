@@ -81,7 +81,7 @@ const VerificationSuccess = () => {
     }
 
     return (
-        <div class="innerPage ptb_150">
+        <div class="innerPage ptb_100">
             <section>
                 <div class="container">
                     {isLoading ? <div
