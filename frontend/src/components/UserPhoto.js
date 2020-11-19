@@ -24,6 +24,8 @@ const UserPhoto = () => {
     const [isLoading, setIsLoading] = useState();
     const [imageSrc, setImageSrc] = useState();
     const [isPhotoTaken, setIsPhotoTaken] = useState();
+    const [displayMessage, setDisplayMessage] = useState();
+
     const history = useHistory();
     const [user, setUser] = useState();
     const webcamRef = React.createRef();
@@ -75,16 +77,18 @@ const UserPhoto = () => {
                 setUser(data['data']);
                 if (data['data']['id_verification_result'] == "verified") {
                     if (data['data']['verify_result']) {
-                        alert('All your verification has been completed!.');
+                        showErrorMessage('success', 'All your verification has been completed!');
                         history.push('/verifisuccess?token=' + token);
                     }
                 } else {
                     history.push('/verifyID?token=' + token);
                 }
+            } else {
+                showErrorMessage('error', 'User not found!');
             }
         }).catch(err => {
             setIsLoading(false);
-            alert('Sorry, User not found!.');
+            showErrorMessage('error', 'Unable to fetch user info!');
         })
     }
 
@@ -92,7 +96,7 @@ const UserPhoto = () => {
         if (webcamRef && webcamRef.current) {
             const imageSrc = webcamRef.current.getScreenshot();
             if (!imageSrc) {
-                alert('Camera is not connected!!');
+                showErrorMessage('error', 'Camera is not connected!!');
                 return;
             }
             setImageSrc(imageSrc);
@@ -127,23 +131,26 @@ const UserPhoto = () => {
                     setIsLoading(false);
                     if (data.status) {
                         setUser(data);
-                        alert('photo uploaded successfully!');
+                        showErrorMessage('success', 'photo uploaded successfully!');
                         verificationResult();
                     } else {
-                        alert('photo upload faild!');
+                        showErrorMessage('error', 'photo upload faild!');
                     }
                 }).catch(err => {
                     setIsLoading(false);
-                    alert('photo upload faild!');
+                    showErrorMessage('error', 'photo upload faild!');
                 });
             } else {
-                alert((err && err.message) ? err.message : 'photo upload faild!');
+                showErrorMessage('error', 'photo upload faild!');
             }
         });
     }
 
     const verificationResult = () => {
-        if (!(user && user.verify_photo && user.verify_idcard)) { alert("some of the required user information nor found!, please try again."); return; }
+        if (!(user && user.verify_photo && user.verify_idcard)) {
+            showErrorMessage('error', 'some of the required user information nor found!, please try again!');
+            return;
+        }
         const bucket = config.aws.bucket;
         const photoSrc = user.verify_photo;
         const idSrc = user.verify_idcard;
@@ -173,11 +180,11 @@ const UserPhoto = () => {
             client.compareFaces(params, function (err, response) {
                 setIsLoading(false);
                 if (err) {
-                    alert('You didn\'t upload exact personal photo.');
+                    showErrorMessage('error', 'You didn\'t upload exact personal photo.');
                     return;
                 }
                 if (!response.FaceMatches.length) {
-                    alert('User and ID is not matched!');
+                    showErrorMessage('error', 'User and ID is not matched!');
                     return;
                 }
                 response.FaceMatches.forEach((data) => {
@@ -203,15 +210,15 @@ const UserPhoto = () => {
                             }).then(response => response.json())
                                 .then(data => {
                                     if (data.status) {
-                                        alert('verification success!');
+                                        showErrorMessage('success', 'verification success!');
                                         history.push('/verifisuccess?token=' + token);
                                     }
                                     else {
-                                        alert('Error sending mail!.');
+                                        showErrorMessage('error', 'Error sending mail!');
                                     }
                                 });
                         } else {
-                            alert('Error on verification!');
+                            showErrorMessage('error', 'Error on verification!');
                         }
                     }).catch(err => {
                         setIsLoading(false);
@@ -229,6 +236,30 @@ const UserPhoto = () => {
             array.push(binary.charCodeAt(i));
         }
         return new Blob([new Uint8Array(array)], { type: mimeString });
+    }
+
+    const showErrorMessage = (type, message) => {
+        setDisplayMessage({
+            type,
+            message
+        });
+        setTimeout(() => {
+            setDisplayMessage();
+        }, 3000);
+    }
+
+    const showMessage = () => {
+        if (displayMessage && displayMessage.type && displayMessage.message) {
+            if (displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{displayMessage.message}</div>
+                );
+            }
+        }
     }
 
     return (
@@ -299,7 +330,7 @@ const UserPhoto = () => {
                     </div>
                 </div>
             </section>
-            {/* <div id="show" class="submitMsg"><img src="images/checked_ic.svg"/>ID has been Submitted</div> */}
+            {showMessage()}
         </div>
     );
 }
