@@ -132,7 +132,7 @@ const UserPhoto = () => {
                     if (data.status) {
                         setUser(data);
                         showErrorMessage('success', 'photo uploaded successfully!');
-                        verificationResult();
+                        verificationResult(data);
                     } else {
                         showErrorMessage('error', 'photo upload faild!');
                     }
@@ -146,14 +146,14 @@ const UserPhoto = () => {
         });
     }
 
-    const verificationResult = () => {
-        if (!(user && user.verify_photo && user.verify_idcard)) {
+    const verificationResult = (userData) => {
+        if (!(userData && userData.verify_photo && userData.verify_idcard)) {
             showErrorMessage('error', 'some of the required user information nor found!, please try again!');
             return;
         }
         const bucket = config.aws.bucket;
-        const photoSrc = user.verify_photo;
-        const idSrc = user.verify_idcard;
+        const photoSrc = userData.verify_photo;
+        const idSrc = userData.verify_idcard;
         if (photoSrc && idSrc) {
             setIsLoading(true);
             AWS.config.update({
