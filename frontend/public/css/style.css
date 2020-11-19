@@ -1018,6 +1018,24 @@ textarea.input__ {
   margin-right: 20px;
 }
 
+.errorMsg {
+  background-color: #ff0034;
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 22px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.errorMsgIcon {
+  font-size: 40px;
+  margin-right: 20px;
+}
+
 .btnBootomCol {
   padding-top: 30px;
 }

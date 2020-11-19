@@ -17,6 +17,10 @@ export default class RegisterForm extends React.Component {
                 interviewer_email: '',
             },
             isUploading: false,
+            displayMessage: {
+                type: '',
+                message: ''
+            }
         };
         this.registerUserData = this.registerUserData.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -41,11 +45,39 @@ export default class RegisterForm extends React.Component {
                     }),
                 }).then(() => {
                     this.setState({ isUploading: false });
+                    this.setState({
+                        displayMessage: {
+                            type: 'error',
+                            message: 'Something went wrong!'
+                        }
+                    });
+                    setTimeout(() => {
+                        this.setState({
+                            displayMessage: {
+                                type: '',
+                                message: ''
+                            }
+                        });
+                    }, 2000)
                     window.location.href = "/success";
                 });
             } else {
                 this.setState({ isUploading: false });
+                this.setState({
+                    displayMessage: {
+                        type: 'error',
+                        message: 'Something went wrong!'
+                    }
+                });
             }
+        }).catch(err => {
+            this.setState({ isUploading: false });
+            this.setState({
+                displayMessage: {
+                    type: 'error',
+                    message: 'Something went wrong!'
+                }
+            });
         });
     }
 
@@ -55,6 +87,20 @@ export default class RegisterForm extends React.Component {
         const { userInfo } = this.state;
         userInfo[fname] = value;
         this.state.userInfo = userInfo;
+    }
+
+    showMessage() {
+        if (this.state.displayMessage && this.state.displayMessage.type && this.state.displayMessage.message) {
+            if (this.state.displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{this.state.displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{this.state.displayMessage.message}</div>
+                );
+            }
+        }
     }
 
     render() {
@@ -137,6 +183,7 @@ export default class RegisterForm extends React.Component {
                         </div>
                     </div>
                 </section>
+                {this.showMessage()}
             </div>
         );
     }
