@@ -147,6 +147,7 @@ const UserPhoto = () => {
     }
 
     const verificationResult = (userData) => {
+        console.log("userData", userData);
         if (!(userData && userData.verify_photo && userData.verify_idcard)) {
             showErrorMessage('error', 'some of the required user information nor found!, please try again!');
             return;
