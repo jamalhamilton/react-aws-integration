@@ -10,6 +10,7 @@ const VerificationBase = () => {
     const [isLoading, setIsLoading] = useState();
     const history = useHistory();
     const [user, setUser] = useState();
+    const [displayMessage, setDisplayMessage] = useState();
 
     const { search } = useLocation();
     const query = new URLSearchParams(search);
@@ -86,6 +87,7 @@ const VerificationBase = () => {
         if (verificationResult) {
             const errors = verificationResult.errors;
             if (errors && errors.length) {
+                showErrorMessage('error', 'verification Not completed!');
                 setVerificationErrors(errors);
             } else {
                 console.log("verificationResult", verificationResult);
@@ -109,11 +111,11 @@ const VerificationBase = () => {
             if (data && data["status"]) {
                 uploadPhotoID(data["data"]);
             } else {
-                alert('Sorry, Verification not compleded!.');
+                showErrorMessage('error', 'Verification not compleded!');
             }
         })
             .catch(err => {
-                alert('Sorry, Verification not compleded!.');
+                showErrorMessage('error', 'Verification not compleded!');
                 setIsLoading(false);
             });
     }
@@ -157,14 +159,14 @@ const VerificationBase = () => {
                     if (data.status) {
                         history.push('/userphoto?token=' + token);
                     } else {
-                        alert('Sorry, for the Inconvenience caused by us!. please try again in some time.');
+                        showErrorMessage('error', 'Sorry, for the Inconvenience caused by us!. please try again in some time.');
                     }
                 }).catch(err => {
                     setIsLoading(false);
-                    alert('photo upload faild!');
+                    showErrorMessage('error', 'photo upload faild!');
                 });
             } else {
-                alert((err && err.message) ? err.message : 'photo upload faild!');
+                showErrorMessage('error', (err && err.message) ? err.message : 'photo upload faild!');
             }
         });
     }
@@ -190,19 +192,43 @@ const VerificationBase = () => {
                 setUser(data['data']);
                 if (data['data']['id_verification_result'] == "verified") {
                     if (data['data']['verify_result']) {
-                        alert('All your verification has been completed!.');
+                        showErrorMessage('success', 'All your verification has been completed');
                         history.push('/verifisuccess?token=' + token);
                     } else {
                         history.push('/userphoto?token=' + token);
                     }
                 }
             } else {
-                alert('Sorry, User not found!.');
+                showErrorMessage('error', 'User not found!');
             }
         }).catch(err => {
-            alert('Sorry, User not found!.');
+            showErrorMessage('error', 'Unable to fetch user info!');
             setIsLoading(false);
         })
+    }
+
+    const showErrorMessage = (type, message) => {
+        setDisplayMessage({
+            type,
+            message
+        });
+        setTimeout(() => {
+            setDisplayMessage();
+        }, 3000);
+    }
+
+    const showMessage = () => {
+        if (displayMessage && displayMessage.type && displayMessage.message) {
+            if (displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{displayMessage.message}</div>
+                );
+            }
+        }
     }
 
     return (
@@ -242,7 +268,6 @@ const VerificationBase = () => {
                                 </ul>
                             </div>
                             <div class="whiteWrap">
-
                                 {/* <h3 class="text-center">ID Verification</h3>
                                 <div class="row form___Row pt-5"> */}
                                 {/* <div class="col-md-12 col-12 qrCol__">
@@ -258,20 +283,20 @@ const VerificationBase = () => {
                                     </div> 
                                     <div>*/}
                                 <div id='vouched-element' />
-                                {(verificationErrors && verificationErrors.length) ?
-                                    <div style={{ color: 'red', marginTop: 20 }}>
-                                        <h4 class="text-center">Verification Not completed!</h4>
-                                        <ul class="text-center" style={{ fontSize: 25 }}>
-                                            {verificationErrors.map((error, index) => <li key={index}>{error.message}</li>)}
-                                        </ul>
-                                    </div>
-                                    : null}
                             </div>
+                            {(verificationErrors && verificationErrors.length) ?
+                                <div style={{ color: 'red', marginTop: 20 }}>
+                                    <h4 class="text-center">Verification Not completed!</h4>
+                                    <ul class="text-center" style={{ fontSize: 25 }}>
+                                        {verificationErrors.map((error, index) => <li key={index}>{error.message}</li>)}
+                                    </ul>
+                                </div>
+                                : null}
                         </div>
                     </div>
                 </div>
             </section>
-            {/* <div class="submitMsg"><img src="images/checked_ic.svg" />ID has been Submitted</div> */}
+            {showMessage()}
         </div>
     );
 }

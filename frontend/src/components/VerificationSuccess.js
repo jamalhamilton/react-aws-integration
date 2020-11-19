@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Row, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { BrowserRouter as Router, useLocation, useHistory } from "react-router-dom";
 import config from "../config/front_config";
-import { Container } from "react-bootstrap";
 
 const VerificationSuccess = () => {
 
     const history = useHistory();
     const [user, setUser] = useState();
     const [isLoading, setIsLoading] = useState();
+    const [displayMessage, setDisplayMessage] = useState();
 
     const { search } = useLocation();
     const query = new URLSearchParams(search);
@@ -40,10 +40,11 @@ const VerificationSuccess = () => {
                     history.push('/verifyID?token=' + token);
                 }
             } else {
-                alert('User not found!.');
+                showErrorMessage('error', 'User not found!');
             }
         }).catch(err => {
             setIsLoading(false);
+            showErrorMessage('error', 'Unable to fetch user info!');
         })
     }
 
@@ -51,7 +52,31 @@ const VerificationSuccess = () => {
         if (user) {
             window.open(user['social_link'], "_blank");
         } else {
-            alert('User not found!.');
+            showErrorMessage('error', 'User not found!');
+        }
+    }
+
+    const showErrorMessage = (type, message) => {
+        setDisplayMessage({
+            type,
+            message
+        });
+        setTimeout(() => {
+            setDisplayMessage();
+        }, 3000);
+    }
+
+    const showMessage = () => {
+        if (displayMessage && displayMessage.type && displayMessage.message) {
+            if (displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{displayMessage.message}</div>
+                );
+            }
         }
     }
 
@@ -110,6 +135,7 @@ const VerificationSuccess = () => {
                     </div>
                 </div>
             </section>
+            {showMessage()}
         </div>
     );
 }
