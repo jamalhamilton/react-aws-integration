@@ -8,8 +8,9 @@ const LoginPage = () => {
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [errorMsg, setErrorMsg] = useState();
     const [isLoading, setIsLoading] = useState();
+    const [displayMessage, setDisplayMessage] = useState();
+
     const history = useHistory();
 
     const validateEmail = (email) => {
@@ -28,13 +29,12 @@ const LoginPage = () => {
         event.preventDefault();
         if (validateEmail(email)) {
             if (validatePassword(password)) {
-                setErrorMsg(null);
                 loginUser();
             } else {
-                setErrorMsg("Issue on password");
+                showErrorMessage('error', "Issue on password text");
             }
         } else {
-            setErrorMsg("Invalid email");
+            showErrorMessage('error', "Invalid email");
         }
     }
 
@@ -53,48 +53,94 @@ const LoginPage = () => {
                 localStorage.setItem("authToken", data['token']);
                 history.push('/admin');
             } else {
-                setErrorMsg(data['message'] ? data['message'] : 'Issue on login');
+                showErrorMessage('error', ((data && data['message'] && data['message']['message']) ? data['message']['message'] : 'Issue on login!'));
             }
         })
             .catch(err => {
                 setIsLoading(false);
-                setErrorMsg("Issue on login! ", err);
+                showErrorMessage('error', 'Issue on login!');
             })
 
     }
 
+    const showErrorMessage = (type, message) => {
+        setDisplayMessage({
+            type,
+            message
+        });
+        setTimeout(() => {
+            setDisplayMessage();
+        }, 3000);
+    }
+
+
+
+    const showMessage = () => {
+        if (displayMessage && displayMessage.type && displayMessage.message) {
+            if (displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{displayMessage.message}</div>
+                );
+            }
+        }
+    }
+
     return (
-        <Router>
-            <Container style={{ textAlign: "center", backgroundColor: '#ced1c9', padding: 30, borderRadius: 10 }}>
-                <Row className="justify-content-md-center" style={{ marginTop: 50 }}>
-                    <Col xs lg="6">
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" onChange={(event) => setEmail(event.target.value)} placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.</Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" onChange={(event) => setPassword(event.target.value)} placeholder="Password" />
-                            </Form.Group>
-                            {isLoading ? <Button variant="primary" disabled>
-                                <Spinner
-                                    as="span"
-                                    animation="grow"
-                                    size="sm"
-                                    role="status"
-                                    aria-hidden="true"
-                                />Loading...</Button>
-                                :
-                                <Button type="submit" variant="primary">Submit</Button>}
-                            {errorMsg ? <Alert style={{ marginTop: 20 }} variant="danger">{errorMsg}!</Alert> : null}
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-        </Router>
+        <div class="innerPage ptb_100">
+            {isLoading ? <div
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                    zIndex: 999
+                }}>
+                <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+            </div> : null}
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="whiteWrap" style={{ width: '45%' }}>
+                                <div class="text-center">
+                                    <a href="/" class="logoIn mb-3">interverify</a>
+                                </div>
+                                <div class="col-12 text-center mt-1">
+                                        <p class="not__">Administrator Login</p>
+                                    </div>
+                                <div class="row form___Row pt-5">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Email address <span class="req__">*</span></label>
+                                            <input onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Enter Email address" class="input__" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Password <span class="req__">*</span></label>
+                                            <input onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Enter Password" class="input__" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div onClick={handleSubmit} class="form-group text-center pt-2">
+                                            <a class="btn_1">Login</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {showMessage()}
+        </div>
     );
 }
 
