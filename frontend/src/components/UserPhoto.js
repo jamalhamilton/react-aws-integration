@@ -105,6 +105,7 @@ const UserPhoto = () => {
     }
 
     const uploadPhoto = () => {
+        if(!imageSrc) { showErrorMessage('error', 'please take photo!'); return; }
         AWS.config.update({
             accessKeyId: config.aws.accessKey,
             secretAccessKey: config.aws.secretKey,
