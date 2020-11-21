@@ -140,7 +140,7 @@ const AdminPage = () => {
                 <Spinner style={{ textAlign: 'center', marginTop: '30%', color: 'white' }} animation="border" />
             </div> : null}
             {!isLoading && <div class="container whiteWrap" style={{ marginTop: 100, overflow: 'scroll' }}>
-                <Table style={{ tableLayout: 'auto' }} striped bordered hover>
+                <Table style={{ tableLayout: 'auto', color: '#555555' }} striped bordered hover>
                     <thead>
                         <tr>
                             <th>#</th>
