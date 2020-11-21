@@ -156,7 +156,7 @@ export default class RegisterForm extends React.Component {
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label class="label__">Candidate Email <span class="req__">*</span></label>
-                                                <input name="candidate_email" onChange={this.handleChange} type="text" placeholder="example@example.com" class="input__" />
+                                                <input name="candidate_email" onChange={this.handleChange} type="email" placeholder="example@example.com" class="input__" />
                                                 {this.state.formError && this.state.formError['candidate_email'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['candidate_email'] ? this.state.formError['candidate_email'] : 'Candidate Email is not valid.'}</small> : null}
                                             </div>
                                         </div>
@@ -195,13 +195,13 @@ export default class RegisterForm extends React.Component {
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label class="label__">Interview Email<span class="req__">*</span></label>
-                                                <input name="interviewer_email" type="text" onChange={this.handleChange} placeholder="example@example.com" class="input__" />
+                                                <input name="interviewer_email" type="email" onChange={this.handleChange} placeholder="example@example.com" class="input__" />
                                                 {this.state.formError && this.state.formError['interviewer_email'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['interviewer_email'] ? this.state.formError['interviewer_email'] : 'Interviewer Email is not valid.'}</small> : null}
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-12">
-                                            <div onClick={this.registerUserData} class="form-group text-center pt-2">
-                                                <a class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
+                                            <div class="form-group text-center pt-2">
+                                                <a onClick={this.registerUserData} class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
                                             </div>
                                         </div>
                                         <div class="col-12 text-center mt-3">

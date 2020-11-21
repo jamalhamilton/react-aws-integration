@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, useParams, useHistory } from "react-router-dom";
-import { Container, Form, Button, Spinner, Alert, Row, Col } from "react-bootstrap";
+import { useParams, useHistory } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 import config from "../config/front_config";
 
 const UpdateUser = () => {
@@ -8,10 +8,11 @@ const UpdateUser = () => {
     const [user, setUser] = useState();
     const [userWithoutEdit, setUserWithoutEdit] = useState();
     const [isLoading, setIsLoading] = useState();
-    const [error, setError] = useState();
     const history = useHistory();
+    const [displayMessage, setDisplayMessage] = useState();
 
     useEffect(() => {
+        showErrorMessage("success", "Updated.");
         getUser();
     }, []);
 
@@ -21,9 +22,11 @@ const UpdateUser = () => {
         return re.test(String(email).toLowerCase());
     }
 
-    const handleChange = (value, key) => {
+    const handleChange = (e) => {
+        const fname = e.target.name;
+        const value = e.target.value;
         const currentVal = user;
-        currentVal[key] = value;
+        currentVal[fname] = value;
         setUser(currentVal);
     }
 
@@ -46,11 +49,11 @@ const UpdateUser = () => {
                     setUser(data['data']);
                     setUserWithoutEdit(data['data']);
                 } else {
-                    setError("Issue on loding user or no user found!");
+                    showErrorMessage('error', 'User not found!');
                 }
             }).catch(err => {
                 setIsLoading(false);
-                setError("Issue on loding user! ", err);
+                showErrorMessage('error', 'Unable to fetch user info!');
             })
         }
         else {
@@ -75,122 +78,173 @@ const UpdateUser = () => {
                 }).then(res => res.json()).then(data => {
                     setIsLoading(false);
                     if (data['status']) {
-                        alert("Updated.");
+                        showErrorMessage("success", "Updated.");
                         history.push('/admin');
                     } else {
-                        alert(data['message'] ? data['message'] : 'Issue on updating user');
+                        showErrorMessage('error', 'Issue on updating user');
                     }
                 })
                     .catch(err => {
                         setIsLoading(false);
-                        setError("Issue on deleting! ", err);
+                        showErrorMessage('error', 'Issue on updating user');
                     })
             } else {
                 history.push('/login');
             }
         } else {
-            alert("Candidate Email should be valid");
+            showErrorMessage('error', 'Candidate Email should be valid');
         }
     }
 
+    const showErrorMessage = (type, message) => {
+        setDisplayMessage({
+            type,
+            message
+        });
+        setTimeout(() => {
+            setDisplayMessage();
+        }, 3000);
+    }
+
+    const showMessage = () => {
+        if (displayMessage && displayMessage.type && displayMessage.message) {
+            if (displayMessage.type === 'success') {
+                return (
+                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                );
+            } else {
+                return (
+                    <div class="errorMsg"><i class="fas fa-times-circle errorMsgIcon"></i>{displayMessage.message}</div>
+                );
+            }
+        }
+    }
 
     return (
-        <Router>
-            <p onClick={() => history.push('/admin')} style={{
-                margin: 10,
-                textDecorationLine: 'underline',
-                cursor: 'pointer'
-            }}>Back to users list</p>
-            <Container style={{ textAlign: "center", backgroundColor: '#ced1c9', padding: 30, borderRadius: 10 }}>
-                <h1>update user</h1>
-                {isLoading ? <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        textAlign: 'center',
-                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                        zIndex: 999
-                    }}>
-                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-                </div> : (user && user.token) ?
-                        <Row className="justify-content-md-center" style={{ marginTop: 50 }}>
-                            <Col xs lg="6">
-                                <Form>
-                                    <Form.Group>
-                                        <Form.Label>Candidate First Name</Form.Label>
-                                        <Form.Control defaultValue={user['candidate_name_first']} onChange={(event) => handleChange(event.target.value, 'candidate_name_first')} />
-                                    </Form.Group>
+        <div class="innerPage ptb_100">
+            <section>
+                    {isLoading ? <div
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            textAlign: 'center',
+                            backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                            zIndex: 999
+                        }}>
+                        <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                    </div> : null}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="/" class="logoIn mb-5">interverify</a>
+                            </div>
+                            <div class="whiteWrap">
+                                <h3 class="text-center">Interview Details</h3>
+                                <div class="row form___Row pt-5">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Candidate First Name </label>
+                                            <input defaultValue={user?.candidate_name_first} name="candidate_name_first" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Candidate Last Name</Form.Label>
-                                        <Form.Control defaultValue={user['candidate_name_last']} onChange={(event) => handleChange(event.target.value, 'candidate_name_last')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Candidate Last Name </label>
+                                            <input defaultValue={user?.candidate_name_last} name="candidate_name_last" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Candidate Email</Form.Label>
-                                        <Form.Control defaultValue={user['candidate_email']} onChange={(event) => handleChange(event.target.value, 'candidate_email')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Candidate Email </label>
+                                            <input defaultValue={user?.candidate_email} name="candidate_email" onChange={handleChange} type="email" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Interviewer First Name</Form.Label>
-                                        <Form.Control defaultValue={user['interviewer_name_first']} onChange={(event) => handleChange(event.target.value, 'interviewer_name_first')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Date Of Interview </label>
+                                            <input defaultValue={user?.date_of_interview} name="date_of_interview" onChange={handleChange} type="date" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Interviewer Last Name</Form.Label>
-                                        <Form.Control defaultValue={user['interviewer_name_last']} onChange={(event) => handleChange(event.target.value, 'interviewer_name_last')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Interview Link </label>
+                                            <input defaultValue={user?.social_link} name="social_link" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Interviewer Email</Form.Label>
-                                        <Form.Control defaultValue={user['interviewer_email']} onChange={(event) => handleChange(event.target.value, 'interviewer_email')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Interview First Name </label>
+                                            <input defaultValue={user?.interviewer_name_first} name="interviewer_name_first" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Social Link</Form.Label>
-                                        <Form.Control defaultValue={user['social_link']} onChange={(event) => handleChange(event.target.value, 'social_link')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Interview Last Name </label>
+                                            <input defaultValue={user?.interviewer_name_last} name="interviewer_name_last" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Similarity</Form.Label>
-                                        <Form.Control defaultValue={user['similarity']} onChange={(event) => handleChange(event.target.value, 'similarity')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Interview Email </label>
+                                            <input defaultValue={user?.interviewer_email} name="interviewer_email" onChange={handleChange} type="email" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Verify Result</Form.Label>
-                                        <Form.Control defaultValue={user['verify_result']} onChange={(event) => handleChange(event.target.value, 'verify_result')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Similarity Score</label>
+                                            <input defaultValue={user?.verify_result} name="verify_result" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Date Of Interview</Form.Label>
-                                        <Form.Control type="datetime-local" defaultValue={user['date_of_interview']} onChange={(event) => handleChange(event.target.value, 'date_of_interview')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Uploaded Photo </label>
+                                            <input defaultValue={user?.verify_photo} name="verify_photo" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Verify Photo</Form.Label>
-                                        <Form.Control defaultValue={user['verify_photo']} onChange={(event) => handleChange(event.target.value, 'verify_photo')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Uploaded IDcard </label>
+                                            <input defaultValue={user?.verify_idcard} name="verify_idcard" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Verify IDcard</Form.Label>
-                                        <Form.Control defaultValue={user['verify_idcard']} onChange={(event) => handleChange(event.target.value, 'verify_idcard')} />
-                                    </Form.Group>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Vouched verification </label>
+                                            <input defaultValue={user?.id_verification_result} name="id_verification_result" onChange={handleChange} type="text" placeholder="Enter Candidate First Name" class="input__" />
+                                        </div>
+                                    </div>
 
-                                    <Form.Group>
-                                        <Form.Label>Vouched verification</Form.Label>
-                                        <Form.Control defaultValue={user['id_verification_result']} onChange={(event) => handleChange(event.target.value, 'id_verification_result')} />
-                                    </Form.Group>
-                                </Form>
-                                <Button style={{ margin: 10 }} onClick={() => update()} variant="primary">Update</Button>
-                            </Col>
-                        </Row>
-                        : null}
-                {error ? <Alert style={{ marginTop: 20 }} variant="danger">{error}!</Alert> : null}
-            </Container>
-        </Router>
+                                    <div class="col-md-12 col-12">
+                                            <div class="form-group text-center pt-2">
+                                                <a onClick={() => update()} class="btn_1">Update</a>
+                                            </div>
+                                        </div>
+                                        {/* <div class="col-12 text-center mt-3">
+                                            <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
+                                        </div> */}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {showMessage()}
+        </div>
     );
 }
 

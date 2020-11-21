@@ -129,8 +129,8 @@ const LoginPage = () => {
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-12">
-                                        <div onClick={handleSubmit} class="form-group text-center pt-2">
-                                            <a class="btn_1">Login</a>
+                                        <div class="form-group text-center pt-2">
+                                            <a onClick={handleSubmit} class="btn_1">Login</a>
                                         </div>
                                     </div>
                                 </div>
