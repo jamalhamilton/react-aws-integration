@@ -124,7 +124,8 @@ const AdminPage = () => {
     }
 
     return (
-        <Router>
+        <div class="innerPage" style={{ backgroundImage: "linear-gradient(#25C14F, #fff)", overflow: 'auto' }}>
+            <Button style={{ margin: 30, height: 50, width: 150, border: 0, float: 'right', backgroundImage: "linear-gradient(#fff, #25C14F)" }} onClick={() => logout()}><i className="fa fa-sign-out-alt"></i> Logout</Button>
             {isLoading ? <div
                 style={{
                     position: 'fixed',
@@ -136,62 +137,63 @@ const AdminPage = () => {
                     backgroundColor: 'rgba(16, 16, 16, 0.5)',
                     zIndex: 999
                 }}>
-                <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                <Spinner style={{ textAlign: 'center', marginTop: '30%', color: 'white' }} animation="border" />
             </div> : null}
-            <Button style={{margin: 10}} onClick={() => logout()}>Logout</Button>
-            <Table style={{ tableLayout: 'fixed' }} striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Candidate First Name</th>
-                        <th>Candidate Last Name</th>
-                        <th>Candidate Email</th>
-                        <th>Photo Verification</th>
-                        <th>ID Verification</th>
-                        <th>Result Verification</th>
-                        <th>Interview Date</th>
-                        <th>Social Link</th>
-                        <th>Interviewer First Name</th>
-                        <th>Interviewer Last Name</th>
-                        <th>Interviewer Email</th>
-                        <th>Similarity</th>
-                        <th>Vouched verification</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                {(!error) ?
-                    <tbody>
-                        {users.map((user, index) => {
-                            return (
-                                <tr key={index} style={{ lineBreak: 'anywhere' }}>
-                                    <td>{index + 1}</td>
-                                    <td>{user['candidate_name_first'] ? user['candidate_name_first'] : '--'}</td>
-                                    <td>{user['candidate_name_last'] ? user['candidate_name_last'] : '--'}</td>
-                                    <td>{user['candidate_email'] ? user['candidate_email'] : '--'}</td>
-                                    <td>{user['verify_photo'] ? user['verify_photo'] : '--'}</td>
-                                    <td>{user['verify_idcard'] ? user['verify_idcard'] : '--'}</td>
-                                    <td>{user['verify_result'] ? user['verify_result'] : '--'}</td>
-                                    <td>{user['date_of_interview'] ? user['date_of_interview'] : '--'}</td>
-                                    <td>{user['social_link'] ? user['social_link'] : '--'}</td>
-                                    <td>{user['interviewer_name_first'] ? user['interviewer_name_first'] : '--'}</td>
-                                    <td>{user['interviewer_name_last'] ? user['interviewer_name_last'] : '--'}</td>
-                                    <td>{user['interviewer_email'] ? user['interviewer_email'] : '--'}</td>
-                                    <td>{user['similarity'] ? user['similarity'] : '--'}</td>
-                                    <td>{user['id_verification_result'] ? user['id_verification_result'] : '--'}</td>
-                                    <td>
-                                        <ButtonGroup size="sm">
-                                            <Button onClick={() => history.push(`/admin/update/${user['token']}`)}><i className="fa fa-pencil-square-o"></i></Button>
-                                            <Button onClick={() => deleteItem(index)} variant="danger"><i className="fa fa-trash"></i></Button>
-                                        </ButtonGroup>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody> : null}
-            </Table>
-            {error ? <Alert style={{ marginTop: 20 }} variant="danger">{error}!</Alert> : null}
-            {deleteConfermation()}
-        </Router>
+            {!isLoading && <div class="container whiteWrap" style={{ marginTop: 100, overflow: 'scroll' }}>
+                <Table style={{ tableLayout: 'auto' }} striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Candidate First Name</th>
+                            <th>Candidate Last Name</th>
+                            <th>Candidate Email</th>
+                            <th>Photo Verification</th>
+                            <th>ID Verification</th>
+                            <th>Result Verification</th>
+                            <th>Interview Date</th>
+                            <th>Social Link</th>
+                            <th>Interviewer First Name</th>
+                            <th>Interviewer Last Name</th>
+                            <th>Interviewer Email</th>
+                            <th>Similarity</th>
+                            <th>Vouched verification</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    {(!error) ?
+                        <tbody>
+                            {users.map((user, index) => {
+                                return (
+                                    <tr key={index} style={{ lineBreak: 'anywhere' }}>
+                                        <td>{index + 1}</td>
+                                        <td>{user['candidate_name_first'] ? user['candidate_name_first'] : '--'}</td>
+                                        <td>{user['candidate_name_last'] ? user['candidate_name_last'] : '--'}</td>
+                                        <td>{user['candidate_email'] ? user['candidate_email'] : '--'}</td>
+                                        <td>{user['verify_photo'] ? user['verify_photo'] : '--'}</td>
+                                        <td>{user['verify_idcard'] ? user['verify_idcard'] : '--'}</td>
+                                        <td>{user['verify_result'] ? user['verify_result'] : '--'}</td>
+                                        <td>{user['date_of_interview'] ? user['date_of_interview'] : '--'}</td>
+                                        <td>{user['social_link'] ? user['social_link'] : '--'}</td>
+                                        <td>{user['interviewer_name_first'] ? user['interviewer_name_first'] : '--'}</td>
+                                        <td>{user['interviewer_name_last'] ? user['interviewer_name_last'] : '--'}</td>
+                                        <td>{user['interviewer_email'] ? user['interviewer_email'] : '--'}</td>
+                                        <td>{user['similarity'] ? user['similarity'] : '--'}</td>
+                                        <td>{user['id_verification_result'] ? user['id_verification_result'] : '--'}</td>
+                                        <td>
+                                            <ButtonGroup size="sm">
+                                                <Button onClick={() => history.push(`/admin/update/${user['token']}`)}><i className="fa fa-edit"></i></Button>
+                                                <Button onClick={() => deleteItem(index)} variant="danger"><i className="fa fa-trash"></i></Button>
+                                            </ButtonGroup>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody> : null}
+                </Table>
+                {error ? <Alert style={{ marginTop: 20 }} variant="danger">{error}!</Alert> : null}
+                {deleteConfermation()}
+            </div>}
+        </div>
     );
 }
 
