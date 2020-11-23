@@ -54,7 +54,7 @@ class LandingPage extends React.Component {
                             <div class="col-xl-7 col-lg-6 col-md-6 col-12 heroSliderFull">
                                 <h1>Realtime identity verification for Virtual Hiring!
                 </h1>
-                                <p>The smart solution for secure, seamless identity verification for remote interviewing
+                                <p>The smart solution for fast, secure and seamless identity verification for remote interviewing
 
 
                 </p>
