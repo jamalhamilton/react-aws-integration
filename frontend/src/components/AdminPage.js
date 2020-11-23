@@ -150,13 +150,17 @@ const AdminPage = () => {
                             <th>Photo Verification</th>
                             <th>ID Verification</th>
                             <th>Result Verification</th>
-                            <th>Interview Date</th>
+                            <th>Interview Date and Time</th>
                             <th>Social Link</th>
                             <th>Interviewer First Name</th>
                             <th>Interviewer Last Name</th>
                             <th>Interviewer Email</th>
                             <th>Similarity</th>
                             <th>Vouched verification</th>
+                            <th>Recruiter First Name</th>
+                            <th>Recruiter Last Name</th>
+                            <th>Recruiter Email</th>
+                            <th>Company Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -179,6 +183,10 @@ const AdminPage = () => {
                                         <td>{user['interviewer_email'] ? user['interviewer_email'] : '--'}</td>
                                         <td>{user['similarity'] ? user['similarity'] : '--'}</td>
                                         <td>{user['id_verification_result'] ? user['id_verification_result'] : '--'}</td>
+                                        <td>{user['recruiter_first_name'] ? user['recruiter_first_name'] : '--'}</td>
+                                        <td>{user['recruiter_last_name'] ? user['recruiter_last_name'] : '--'}</td>
+                                        <td>{user['recruiter_email'] ? user['recruiter_email'] : '--'}</td>
+                                        <td>{user['company_name'] ? user['company_name'] : '--'}</td>
                                         <td>
                                             <ButtonGroup size="sm">
                                                 <Button onClick={() => history.push(`/admin/update/${user['token']}`)}><i className="fa fa-edit"></i></Button>

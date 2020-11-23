@@ -1,5 +1,6 @@
 import React from "react";
 import config from "../config/front_config";
+import DateTimePicker from 'react-datetime-picker';
 
 export default class RegisterForm extends React.Component {
 
@@ -74,7 +75,11 @@ export default class RegisterForm extends React.Component {
                         this.setState({ isUploading: false });
                         this.showErrorMessage('success', 'Registered User Successfully');
                         window.location.href = "/success";
-                    });
+                    })
+                    .catch(() => {
+                        this.setState({ isUploading: false });
+                        this.showErrorMessage('error', 'Send mail faild!');
+                    })
                 } else {
                     this.setState({ isUploading: false });
                     this.showErrorMessage('error', 'Something went wrong!');
@@ -93,7 +98,13 @@ export default class RegisterForm extends React.Component {
         const value = e.target.value;
         const { userInfo } = this.state;
         userInfo[fname] = value;
-        this.state.userInfo = userInfo;
+        this.setState({ userInfo: userInfo});
+    }
+
+    handleDateChange(value) {
+        const { userInfo } = this.state;
+        userInfo["date_of_interview"] = value;
+        this.setState({ userInfo: userInfo});
     }
 
     showErrorMessage(type, message) {
@@ -166,7 +177,8 @@ export default class RegisterForm extends React.Component {
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label class="label__">Interview Date <span class="req__">*</span></label>
-                                                <input name="date_of_interview" onChange={this.handleChange} type="date" placeholder="Interview Date" class="input__" />
+                                                {/* <input name="date_of_interview" onChange={this.handleChange} type="date" placeholder="Interview Date" class="input__" /> */}
+                                                <DateTimePicker className={"input__"}  value={this.state?.userInfo?.date_of_interview} name="date_of_interview" onChange={(val) => this.handleDateChange(val)} />
                                                 {this.state.formError && this.state.formError['date_of_interview'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['date_of_interview'] ? this.state.formError['date_of_interview'] : 'Date of Interview is not valid.'}</small> : null}
                                             </div>
                                         </div>
@@ -199,11 +211,46 @@ export default class RegisterForm extends React.Component {
                                                 {this.state.formError && this.state.formError['interviewer_email'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['interviewer_email'] ? this.state.formError['interviewer_email'] : 'Interviewer Email is not valid.'}</small> : null}
                                             </div>
                                         </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter First Name<span class="req__">*</span></label>
+                                                <input name="recruiter_first_name" type="text" onChange={this.handleChange} placeholder="Enter Recruiter First Name" class="input__" />
+                                                {this.state.formError && this.state.formError['recruiter_first_name'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['recruiter_first_name'] ? this.state.formError['recruiter_first_name'] : 'Recruiter First Name is not valid.'}</small> : null}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter Last Name<span class="req__">*</span></label>
+                                                <input name="recruiter_last_name" type="text" onChange={this.handleChange} placeholder="Enter Recruiter Last Name" class="input__" />
+                                                {this.state.formError && this.state.formError['recruiter_last_name'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['recruiter_last_name'] ? this.state.formError['recruiter_last_name'] : 'Recruiter Last Name is not valid.'}</small> : null}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter Email<span class="req__">*</span></label>
+                                                <input name="recruiter_email" type="email" onChange={this.handleChange} placeholder="example@example.com" class="input__" />
+                                                {this.state.formError && this.state.formError['recruiter_email'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['recruiter_email'] ? this.state.formError['recruiter_email'] : 'Recruiter Email is not valid.'}</small> : null}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Company Name<span class="req__">*</span></label>
+                                                <input name="company_name" type="text" onChange={this.handleChange} placeholder="Enter Company Name" class="input__" />
+                                                {this.state.formError && this.state.formError['company_name'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['company_name'] ? this.state.formError['company_name'] : 'Company Name is not valid.'}</small> : null}
+                                            </div>
+                                        </div>
+
+                                        
                                         <div class="col-md-12 col-12">
                                             <div class="form-group text-center pt-2">
                                                 <a onClick={this.registerUserData} class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
                                             </div>
                                         </div>
+                                        
                                         <div class="col-12 text-center mt-3">
                                             <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
                                         </div>

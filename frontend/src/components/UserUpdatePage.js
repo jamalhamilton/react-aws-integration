@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import config from "../config/front_config";
+import DateTimePicker from 'react-datetime-picker';
 
 const UpdateUser = () => {
     const { id } = useParams();
@@ -12,7 +13,6 @@ const UpdateUser = () => {
     const [displayMessage, setDisplayMessage] = useState();
 
     useEffect(() => {
-        showErrorMessage("success", "Updated.");
         getUser();
     }, []);
 
@@ -27,6 +27,12 @@ const UpdateUser = () => {
         const value = e.target.value;
         const currentVal = user;
         currentVal[fname] = value;
+        setUser(currentVal);
+    }
+
+    const handleDateChange = (value) => {
+        const currentVal = user;
+        currentVal["date_of_interview"] = value;
         setUser(currentVal);
     }
 
@@ -123,19 +129,19 @@ const UpdateUser = () => {
     return (
         <div class="innerPage ptb_100">
             <section>
-                    {isLoading ? <div
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            textAlign: 'center',
-                            backgroundColor: 'rgba(16, 16, 16, 0.5)',
-                            zIndex: 999
-                        }}>
-                        <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
-                    </div> : null}
+                {isLoading ? <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        backgroundColor: 'rgba(16, 16, 16, 0.5)',
+                        zIndex: 999
+                    }}>
+                    <Spinner style={{ textAlign: 'center', marginTop: '30%' }} animation="border" />
+                </div> : null}
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -169,7 +175,8 @@ const UpdateUser = () => {
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label class="label__">Date Of Interview </label>
-                                            <input defaultValue={user?.date_of_interview} name="date_of_interview" onChange={handleChange} type="date" placeholder="Enter Candidate First Name" class="input__" />
+                                            {/* <input defaultValue={user?.date_of_interview} name="date_of_interview" onChange={handleChange} type="date" placeholder="Enter Candidate First Name" class="input__" /> */}
+                                            <DateTimePicker className={"input__"} value={user?.date_of_interview} name="date_of_interview" onChange={(val) => handleDateChange(val)} />
                                         </div>
                                     </div>
 
@@ -229,12 +236,40 @@ const UpdateUser = () => {
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12 col-12">
-                                            <div class="form-group text-center pt-2">
-                                                <a onClick={() => update()} class="btn_1">Update</a>
+                                    <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter First Name<span class="req__">*</span></label>
+                                                <input defaultValue={user?.recruiter_first_name} name="recruiter_first_name" type="text" onChange={handleChange} placeholder="Enter Recruiter First Name" class="input__" />
                                             </div>
                                         </div>
-                                        {/* <div class="col-12 text-center mt-3">
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter Last Name<span class="req__">*</span></label>
+                                                <input defaultValue={user?.recruiter_last_name} name="recruiter_last_name" type="text" onChange={handleChange} placeholder="Enter Recruiter Last Name" class="input__" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Recruiter Email<span class="req__">*</span></label>
+                                                <input defaultValue={user?.recruiter_email} name="recruiter_email" type="email" onChange={handleChange} placeholder="example@example.com" class="input__" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label class="label__">Company Name<span class="req__">*</span></label>
+                                                <input defaultValue={user?.company_name} name="company_name" type="text" onChange={handleChange} placeholder="Enter Company Name" class="input__" />
+                                            </div>
+                                        </div>
+
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group text-center pt-2">
+                                            <a onClick={() => update()} class="btn_1">Update</a>
+                                        </div>
+                                    </div>
+                                    {/* <div class="col-12 text-center mt-3">
                                             <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
                                         </div> */}
                                 </div>
