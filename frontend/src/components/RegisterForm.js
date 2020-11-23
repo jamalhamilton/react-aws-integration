@@ -72,11 +72,21 @@ export default class RegisterForm extends React.Component {
                             token: data.token
                         }),
                     }).then(() => {
-                        this.setState({ isUploading: false });
-                        this.showErrorMessage('success', 'Registered User Successfully');
-                        window.location.href = "/success";
-                    })
-                    .catch(() => {
+                        fetch(config.api.sendRegisterSuccessMailToRecruiter, {
+                            headers: { 'Content-Type': 'application/json' },
+                            method: "POST",
+                            body: JSON.stringify({
+                                token: data.token
+                            }),
+                        }).then(() => {
+                            this.setState({ isUploading: false });
+                            this.showErrorMessage('success', 'Registered User Successfully');
+                            window.location.href = "/success";
+                        }).catch(() => {
+                            this.setState({ isUploading: false });
+                            this.showErrorMessage('error', 'Send mail faild!');
+                        });
+                    }).catch(() => {
                         this.setState({ isUploading: false });
                         this.showErrorMessage('error', 'Send mail faild!');
                     })
@@ -98,13 +108,13 @@ export default class RegisterForm extends React.Component {
         const value = e.target.value;
         const { userInfo } = this.state;
         userInfo[fname] = value;
-        this.setState({ userInfo: userInfo});
+        this.setState({ userInfo: userInfo });
     }
 
     handleDateChange(value) {
         const { userInfo } = this.state;
         userInfo["date_of_interview"] = value;
-        this.setState({ userInfo: userInfo});
+        this.setState({ userInfo: userInfo });
     }
 
     showErrorMessage(type, message) {
@@ -178,7 +188,7 @@ export default class RegisterForm extends React.Component {
                                             <div class="form-group">
                                                 <label class="label__">Interview Date <span class="req__">*</span></label>
                                                 {/* <input name="date_of_interview" onChange={this.handleChange} type="date" placeholder="Interview Date" class="input__" /> */}
-                                                <DateTimePicker className={"input__"}  value={this.state?.userInfo?.date_of_interview} name="date_of_interview" onChange={(val) => this.handleDateChange(val)} />
+                                                <DateTimePicker className={"input__"} value={this.state?.userInfo?.date_of_interview} name="date_of_interview" onChange={(val) => this.handleDateChange(val)} />
                                                 {this.state.formError && this.state.formError['date_of_interview'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['date_of_interview'] ? this.state.formError['date_of_interview'] : 'Date of Interview is not valid.'}</small> : null}
                                             </div>
                                         </div>
@@ -244,13 +254,13 @@ export default class RegisterForm extends React.Component {
                                             </div>
                                         </div>
 
-                                        
+
                                         <div class="col-md-12 col-12">
                                             <div class="form-group text-center pt-2">
                                                 <a onClick={this.registerUserData} class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12 text-center mt-3">
                                             <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
                                         </div>

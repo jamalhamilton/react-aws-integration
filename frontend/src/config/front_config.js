@@ -26,6 +26,7 @@ export default {
         getUser: '/api/getUser',
         registerUser: '/api/registerUser',
         sendMail: '/api/sendMail',
+        sendRegisterSuccessMailToRecruiter: '/api/sendRegisterSuccessMailToRecruiter',
         sendResultMail: '/api/sendResultMail',
         updateUserInfo: '/api/updateUserInfo',
         adminLogin: '/api/admin/login',

@@ -84,19 +84,26 @@ const VerificationBase = () => {
     }
 
     const onVerificationCompleted = (verificationResult) => {
-        if (verificationResult) {
+        if (verificationResult && user && user.token) {
+            let nameMatch = 'nomatch';
             const errors = verificationResult.errors;
             if (errors && errors.length) {
                 showErrorMessage('error', 'verification Not completed!');
                 setVerificationErrors(errors);
             } else {
                 console.log("verificationResult", verificationResult);
-                getPhotoIDandUpdateToAWS(verificationResult['token']);
+                console.log("user Result", user);
+                if (verificationResult['firstName'] && user['candidate_name_first'] && verificationResult['lastName'] && user['candidate_name_last']) {
+                    if ((verificationResult['firstName'].toLowerCase()) === (user['candidate_name_first'].toLowerCase()) && (verificationResult['lastName'].toLowerCase()) === (user['candidate_name_last'].toLowerCase())) {
+                        nameMatch = 'match';
+                    }
+                }
+                getPhotoIDandUpdateToAWS(verificationResult['token'], nameMatch);
             }
         }
     }
 
-    const getPhotoIDandUpdateToAWS = (verificationToken) => {
+    const getPhotoIDandUpdateToAWS = (verificationToken, nameMatch) => {
         setIsLoading(true);
         fetch(config.api.getPhotoId, {
             headers: {
@@ -109,7 +116,7 @@ const VerificationBase = () => {
         }).then(res => res.json()).then(data => {
             setIsLoading(false);
             if (data && data["status"]) {
-                uploadPhotoID(data["data"]);
+                uploadPhotoID(data["data"], nameMatch);
             } else {
                 showErrorMessage('error', 'Verification not compleded!');
             }
@@ -130,7 +137,7 @@ const VerificationBase = () => {
         return new Blob([new Uint8Array(array)], { type: mimeString });
     }
 
-    const uploadPhotoID = (imageToUpload) => {
+    const uploadPhotoID = (imageToUpload, nameMatch) => {
         imageToUpload = dataURItoBlob(imageToUpload);
         AWS.config.update({
             accessKeyId: config.aws.accessKey,
@@ -152,7 +159,8 @@ const VerificationBase = () => {
                     body: JSON.stringify({
                         token,
                         verify_idcard: fileName,
-                        id_verification_result: "verified"
+                        id_verification_result: "verified",
+                        name_match: nameMatch
                     }),
                 }).then(res => res.json()).then(data => {
                     setIsLoading(false);
