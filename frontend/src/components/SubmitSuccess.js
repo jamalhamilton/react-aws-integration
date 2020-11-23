@@ -14,30 +14,32 @@ class SubmitSuccess extends React.Component {
 
         };
     }
-    goBack(){
+    goBack() {
         window.location.href = '/submit';
     }
     render() {
 
         return (
-            <Router>
-                <Container style={{ textAlign: "center" }}>
-                    <div>
-                        <Row style={{ marginTop: 150 }}>
-                            <Col>
-                                <h2>That info has been received and email has been sent to candidate. You can invite another candidate.</h2>
-                            </Col>
-                        </Row>
-                        <Row style={{ marginTop: 15 }}>
-                            <Col>
-                                <Button variant="primary"
-                                    onClick={this.goBack}
-                                >Go Back</Button>
-                            </Col>
-                        </Row>
+            <div class="innerPage ptb_100">
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center">
+                                    <a href="/" class="logoIn mb-5">interverify</a>
+                                </div>
+                                <div class="whiteWrap">
+                                    <p className="not__">That info has been received and email has been sent to candidate. You can invite another candidate.</p>
+                                    <div class="text-center pt-2">
+                                        <a onClick={this.goBack} class="btn_1">Go Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </Container>
-            </Router>
+                </section>
+            </div>
+
         );
     }
 }

@@ -261,9 +261,9 @@ export default class RegisterForm extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div class="col-12 text-center mt-3">
+                                        {/* <div class="col-12 text-center mt-3">
                                             <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

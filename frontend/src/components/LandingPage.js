@@ -185,8 +185,7 @@ class LandingPage extends React.Component {
                                         <div class="carousel-item active">
                                             <div class="testoRow">
                                                 <div class="testoMaintext">
-                                                    <p>“Interverify helped us in saving tons of hours of identification process into
-                                        seconds by providing the automate solutions.”</p>
+                                                    <p>“Interverify helped us become compliant with our cyber risks audit, by verifying the identities of incoming employees.”</p>
                                                 </div>
                                                 <div class="clientInfo">
                                                     <div class="avtImg">
@@ -194,7 +193,7 @@ class LandingPage extends React.Component {
                                                     </div>
                                                     <div class="avtText">
                                                         <div class="_name">Alex Smith</div>
-                                                        <div class="_designation">CEO of Duplee</div>
+                                                        <div class="_designation">CEO of GenMerch</div>
                                                     </div>
                                                 </div>
                                             </div>
