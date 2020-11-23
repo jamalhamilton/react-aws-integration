@@ -66,7 +66,6 @@ controller.sendMail = (req, res, next) => {
                     <p>You are confirmed for a video interview on ${userInfo.date_of_interview}. You are required to verify your identity before proceeding to the interview. The process should be quick and seamless. Please begin the verification process not more than 5 minutes prior to your interview.</p> 
                     <p>When you are ready to begin the verification process, please click the link below.</p>
                     <p><a href="${verifyURL}">${verifyURL}</a></p>
-                    <br/>
                     <h2>Things to Note</h2>
                     <ul>
                     <li> Please have a valid government issued form of identification for this process.</li>
@@ -74,7 +73,6 @@ controller.sendMail = (req, res, next) => {
                     <li> Using a smartphone for the ID verification process will be ideal.</li>
                     <li> If you have any difficulties in the verification process, please email <a href="mailto:support@interverify.co">support@interverify.co</a> with the subject “Urgent” and make sure to include your full name.</li>
                     </ul>
-                    <br/>
                     <h2>Good luck!</h2>
                 `
                 };
@@ -135,11 +133,9 @@ controller.sendResultMail = (req, res, next) => {
                     html: `
                         <h2>Hello ${userInfo.interviewer_name_first}.</h2>
                         <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
-                        <br/>
-                        <p>Candidate Name: Match</p>
+                        <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                         <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
                         <p>Candidate Photo: ${userInfo.verify_photo}</p>
-                        <br/>
                         <p>You may now begin interview process by clicking the link below.</p>
                         <p><a href="${userInfo.social_link}">${userInfo.social_link}</a></p>
                     `
@@ -206,9 +202,7 @@ controller.sendRegisterSuccessMailToRecruiter = (req, res, next) => {
                     html: `
                     <h2>Hi ${userInfo.recruiter_first_name}.</h2>
                     <p>You have submitted an Interverify request for ${userInfo.candidate_name_first} ${userInfo.candidate_name_last} for interview on ${userInfo.date_of_interview}.</p>
-                    <br/>
                     <p>Candidate will begin verification not more than 5 minutes before the Interview. Once verification is complete, you will be notified with the results.</p> 
-                    <br/>
                     <p>If you need to make changes to this submission, please email <a href="mailto:support@interverify.co">support@interverify.co</a> with the changes. Please include candidate name in the email.</p>
                 `
                 };
