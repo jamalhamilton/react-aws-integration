@@ -237,32 +237,32 @@ const UpdateUser = () => {
                                     </div>
 
                                     <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label class="label__">Recruiter First Name<span class="req__">*</span></label>
-                                                <input defaultValue={user?.recruiter_first_name} name="recruiter_first_name" type="text" onChange={handleChange} placeholder="Enter Recruiter First Name" class="input__" />
-                                            </div>
+                                        <div class="form-group">
+                                            <label class="label__">Recruiter First Name<span class="req__">*</span></label>
+                                            <input defaultValue={user?.recruiter_first_name} name="recruiter_first_name" type="text" onChange={handleChange} placeholder="Enter Recruiter First Name" class="input__" />
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label class="label__">Recruiter Last Name<span class="req__">*</span></label>
-                                                <input defaultValue={user?.recruiter_last_name} name="recruiter_last_name" type="text" onChange={handleChange} placeholder="Enter Recruiter Last Name" class="input__" />
-                                            </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Recruiter Last Name<span class="req__">*</span></label>
+                                            <input defaultValue={user?.recruiter_last_name} name="recruiter_last_name" type="text" onChange={handleChange} placeholder="Enter Recruiter Last Name" class="input__" />
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label class="label__">Recruiter Email<span class="req__">*</span></label>
-                                                <input defaultValue={user?.recruiter_email} name="recruiter_email" type="email" onChange={handleChange} placeholder="example@example.com" class="input__" />
-                                            </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Recruiter Email<span class="req__">*</span></label>
+                                            <input defaultValue={user?.recruiter_email} name="recruiter_email" type="email" onChange={handleChange} placeholder="example@example.com" class="input__" />
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-6 col-12">
-                                            <div class="form-group">
-                                                <label class="label__">Company Name<span class="req__">*</span></label>
-                                                <input defaultValue={user?.company_name} name="company_name" type="text" onChange={handleChange} placeholder="Enter Company Name" class="input__" />
-                                            </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label class="label__">Company Name<span class="req__">*</span></label>
+                                            <input defaultValue={user?.company_name} name="company_name" type="text" onChange={handleChange} placeholder="Enter Company Name" class="input__" />
                                         </div>
+                                    </div>
 
                                     <div class="col-md-12 col-12">
                                         <div class="form-group text-center pt-2">
