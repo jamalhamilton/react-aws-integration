@@ -61,7 +61,7 @@ class LandingPage extends React.Component {
                                 <a href="register" class="btn_1">Get Started Free</a>
                             </div>
                             <div class="col-xl-5 col-lg-6 col-md-6 col-12 heroSliderFull">
-                                <img src="images/img_2.png" class="heroImg" />
+                                <img src="images/female.png" class="heroImg" />
                             </div>
                         </div>
                     </div>
