@@ -9,14 +9,13 @@ const VerificationBase = () => {
     const [verificationErrors, setVerificationErrors] = useState();
     const [isLoading, setIsLoading] = useState();
     const history = useHistory();
-    const [user, setUser] = useState();
     const [displayMessage, setDisplayMessage] = useState();
 
     const { search } = useLocation();
     const query = new URLSearchParams(search);
     const token = query.get('token');
 
-    const vouchedBaseLoaded = () => {
+    const vouchedBaseLoaded = (userData) => {
         var vouched = window.Vouched({
             appId: config.vouched_PUBLIC_KEY,
             crossDevice: true,
@@ -32,7 +31,7 @@ const VerificationBase = () => {
             },
             onDone: (job) => {
                 console.log(job);
-                onVerificationCompleted(job, user);
+                onVerificationCompleted(job, userData);
             },
             stepTitles: {
                 FrontId: 'Upload ID',
@@ -75,11 +74,11 @@ const VerificationBase = () => {
         vouched.mount("#vouched-element");
     }
 
-    const initVouchedBase = () => {
+    const initVouchedBase = (userData) => {
         const script = document.createElement("script");
         script.src = "https://static.vouched.id/widget/vouched.js";
         script.async = true;
-        script.onload = () => vouchedBaseLoaded();
+        script.onload = () => vouchedBaseLoaded(userData);
         document.body.appendChild(script);
     }
 
@@ -180,7 +179,6 @@ const VerificationBase = () => {
     }
 
     useEffect(() => {
-        initVouchedBase();
         getUserWithToken();
     }, []);
 
@@ -197,7 +195,6 @@ const VerificationBase = () => {
         }).then(res => res.json()).then(data => {
             setIsLoading(false);
             if (data && data['data'] && data['data']['token']) {
-                setUser(data['data']);
                 if (data['data']['id_verification_result'] == "verified") {
                     if (data['data']['verify_result']) {
                         showErrorMessage('success', 'All your verification has been completed');
@@ -206,6 +203,7 @@ const VerificationBase = () => {
                         history.push('/userphoto?token=' + token);
                     }
                 }
+                initVouchedBase(data['data']);
             } else {
                 showErrorMessage('error', 'User not found!');
             }
