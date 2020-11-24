@@ -116,7 +116,7 @@ const UpdateUser = () => {
         if (displayMessage && displayMessage.type && displayMessage.message) {
             if (displayMessage.type === 'success') {
                 return (
-                    <div class="submitMsg"><img src="images/checked_ic.svg" />{displayMessage.message}</div>
+                    <div class="submitMsg"><img src="../../images/checked_ic.svg" />{displayMessage.message}</div>
                 );
             } else {
                 return (
@@ -145,9 +145,10 @@ const UpdateUser = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="text-center">
-                                <a href="/" class="logoIn mb-5">interverify</a>
-                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
+                                <img style={{ height: 50 }} src="../../images/weblogo.png" />
+                                <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
+\                                </div>
                             <div class="whiteWrap">
                                 <h3 class="text-center">Interview Details</h3>
                                 <div class="row form___Row pt-5">

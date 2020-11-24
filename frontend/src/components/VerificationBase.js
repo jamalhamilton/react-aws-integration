@@ -259,7 +259,10 @@ const VerificationBase = () => {
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                                <a href="/" class="logoIn mb-5">interverify</a>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
+                                    <img style={{ height: 50 }} src="images/weblogo.png" />
+                                    <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
+\                                </div>
                                 <ul class="processHead">
                                     <li class="active">
                                         <span class="round_no">1</span>

@@ -109,12 +109,13 @@ const LoginPage = () => {
                     <div class="row">
                         <div class="col-12">
                             <div class="whiteWrap" style={{ width: '45%' }}>
-                                <div class="text-center">
-                                    <a href="/" class="logoIn mb-3">interverify</a>
-                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
+                                    <img style={{ height: 50 }} src="images/weblogo.png" />
+                                    <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
+\                                </div>
                                 <div class="col-12 text-center mt-1">
-                                        <p class="not__">Administrator Login</p>
-                                    </div>
+                                    <p class="not__">Administrator Login</p>
+                                </div>
                                 <div class="row form___Row pt-5">
                                     <div class="col-12">
                                         <div class="form-group">
