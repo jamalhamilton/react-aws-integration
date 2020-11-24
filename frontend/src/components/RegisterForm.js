@@ -154,10 +154,10 @@ export default class RegisterForm extends React.Component {
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="text-center">
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
                                     <img style={{ height: 50 }} src="images/weblogo.png" />
                                     <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
-\                                </div>
+                                </div>
                                 <div class="whiteWrap">
                                     <h3 class="text-center">Interview Details</h3>
                                     <div class="row form___Row pt-5">
@@ -222,7 +222,8 @@ export default class RegisterForm extends React.Component {
                                                 {this.state.formError && this.state.formError['interviewer_email'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['interviewer_email'] ? this.state.formError['interviewer_email'] : 'Interviewer Email is not valid.'}</small> : null}
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="row form___Row">
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">
                                                 <label class="label__">Recruiter First Name<span class="req__">*</span></label>
@@ -254,18 +255,17 @@ export default class RegisterForm extends React.Component {
                                                 {this.state.formError && this.state.formError['company_name'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['company_name'] ? this.state.formError['company_name'] : 'Company Name is not valid.'}</small> : null}
                                             </div>
                                         </div>
+                                    </div>
 
-
-                                        <div class="col-md-12 col-12">
-                                            <div class="form-group text-center pt-2">
-                                                <a onClick={this.registerUserData} class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
-                                            </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group text-center pt-2">
+                                            <a onClick={this.registerUserData} class="btn_1">{this.state.isUploading ? 'Uploading...' : 'Submit'}</a>
                                         </div>
+                                    </div>
 
-                                        {/* <div class="col-12 text-center mt-3">
+                                    {/* <div class="col-12 text-center mt-3">
                                             <p class="not__">By clicking start verification you <br />accept <a>all terms and conditions</a></p>
                                         </div> */}
-                                    </div>
                                 </div>
                             </div>
                         </div>
