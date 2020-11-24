@@ -32,7 +32,7 @@ const VerificationBase = () => {
             },
             onDone: (job) => {
                 console.log(job);
-                onVerificationCompleted(job);
+                onVerificationCompleted(job, user);
             },
             stepTitles: {
                 FrontId: 'Upload ID',
@@ -83,7 +83,7 @@ const VerificationBase = () => {
         document.body.appendChild(script);
     }
 
-    const onVerificationCompleted = (verificationResult) => {
+    const onVerificationCompleted = (verificationResult, user) => {
         if (verificationResult && user && user.token) {
             let nameMatch = 'nomatch';
             const errors = verificationResult.errors;
