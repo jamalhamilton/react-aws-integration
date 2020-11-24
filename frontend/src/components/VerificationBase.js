@@ -92,8 +92,8 @@ const VerificationBase = () => {
             } else {
                 console.log("verificationResult", verificationResult);
                 console.log("user Result", user);
-                if (verificationResult['firstName'] && user['candidate_name_first'] && verificationResult['lastName'] && user['candidate_name_last']) {
-                    if ((verificationResult['firstName'].toLowerCase()) === (user['candidate_name_first'].toLowerCase()) && (verificationResult['lastName'].toLowerCase()) === (user['candidate_name_last'].toLowerCase())) {
+                if (verificationResult['result'] && verificationResult['result']['firstName'] && user['candidate_name_first'] && verificationResult['result']['lastName'] && user['candidate_name_last']) {
+                    if ((verificationResult['result']['firstName'].toLowerCase()) === (user['candidate_name_first'].toLowerCase()) && (verificationResult['result']['lastName'].toLowerCase()) === (user['candidate_name_last'].toLowerCase())) {
                         nameMatch = 'match';
                     }
                 }
