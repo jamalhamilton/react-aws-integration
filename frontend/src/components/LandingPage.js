@@ -18,7 +18,8 @@ class LandingPage extends React.Component {
                         <div class="row">
                             <div class="col-12">
                                 <nav class="navbar navbar-expand-lg">
-                                    <a class="navbar-brand" href="/">interverify</a>
+                                    <img style={{height: 80}} src="images/weblogo.png" />
+                                    <a style={{fontSize: 50, marginLeft: 10}} href="/">interverify</a>
                                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                                         data-target="#navb">
                                         <span class="navbar-toggler-icon"></span>

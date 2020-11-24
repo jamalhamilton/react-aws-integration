@@ -130,12 +130,17 @@ controller.sendResultMail = (req, res, next) => {
                     from: config.smtp.auth.user,
                     to: userInfo.interviewer_email,
                     subject: 'Interverify Support Team',
+                    attachments: [{
+                        filename: 'image.png',
+                        path: config.aws_s3_endpoint + userInfo.verify_photo,
+                        cid: 'unique@kreata.ee'
+                    }],
                     html: `
                         <h2>Hello ${userInfo.interviewer_name_first}.</h2>
                         <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
                         <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                         <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
-                        <p>Candidate Photo: ${userInfo.verify_photo}</p>
+                        <p>Candidate Photo: <img src="cid:unique@kreata.ee"/></p>
                         <p>You may now begin interview process by clicking the link below.</p>
                         <p><a href="${userInfo.social_link}">${userInfo.social_link}</a></p>
                     `
