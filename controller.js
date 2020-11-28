@@ -68,7 +68,7 @@ controller.sendMail = (req, res, next) => {
                     subject: 'Interverify Support Team',
                     html: `
                     <h2>Hi ${userInfo.candidate_name_first}.</h2>
-                    <p>You are confirmed for a video interview on ${convertToEST(userInfo.date_of_interview)}. You are required to verify your identity before proceeding to the interview. The process should be quick and seamless. Please begin the verification process not more than 5 minutes prior to your interview.</p> 
+                    <p>You are confirmed for a video interview on ${convertToEST(userInfo.date_of_interview)} EST. You are required to verify your identity before proceeding to the interview. The process should be quick and seamless. Please begin the verification process not more than 5 minutes prior to your interview.</p> 
                     <p>When you are ready to begin the verification process, please click the link below.</p>
                     <p><a href="${verifyURL}">${verifyURL}</a></p>
                     <h2>Things to Note</h2>
@@ -138,7 +138,7 @@ controller.sendResultMail = (req, res, next) => {
                     html: `
                         <h2>Hello ${userInfo.interviewer_name_first}.</h2>
                         <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
-                        <p>Interview Date: ${convertToEST(userInfo.date_of_interview)}</>
+                        <p>Interview Date: ${convertToEST(userInfo.date_of_interview)} EST.</p>
                         <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                         <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
                         <p>Candidate Photo: <a href="${config.aws_s3_endpoint}${userInfo.verify_photo}" target="_blank">Click here</a></p>
@@ -204,7 +204,7 @@ controller.sendResultMailToRecruiter = (req, res, next) => {
                     html: `
                         <h2>Hello ${userInfo.recruiter_first_name}.</h2>
                         <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
-                        <p>Interview Date: ${convertToEST(userInfo.date_of_interview)}</>
+                        <p>Interview Date: ${convertToEST(userInfo.date_of_interview)} EST.</p>
                         <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                         <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
                         <p>Candidate Photo: <a href="${config.aws_s3_endpoint}${userInfo.verify_photo}" target="_blank">Click here</a>
@@ -273,7 +273,7 @@ controller.sendRegisterSuccessMailToRecruiter = (req, res, next) => {
                     subject: 'Interverify Support Team',
                     html: `
                     <h2>Hi ${userInfo.recruiter_first_name}.</h2>
-                    <p>You have submitted an Interverify request for ${userInfo.candidate_name_first} ${userInfo.candidate_name_last} for interview on ${convertToEST(userInfo.date_of_interview)}.</p>
+                    <p>You have submitted an Interverify request for ${userInfo.candidate_name_first} ${userInfo.candidate_name_last} for interview on ${convertToEST(userInfo.date_of_interview)} EST.</p>
                     <p>Candidate will begin verification not more than 5 minutes before the Interview. Once verification is complete, you will be notified with the results.</p> 
                     <p>If you need to make changes to this submission, please email <a href="mailto:support@interverify.co">support@interverify.co</a> with the changes. Please include candidate name in the email.</p>
                 `
