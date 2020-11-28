@@ -42,7 +42,7 @@ const VerificationBase = () => {
                 cameraButton: 'Take a Photo',
                 crossDeviceTitle: 'ID Verification',
                 crossDeviceInstructions: 'We need to verify your identity. This requires government-issued photo ID as well as selfie. Please follow the instructions below to continue the verification process on your phone',
-                crossDeviceSuccess: 'Verification is complete, continue on your desktop',
+                crossDeviceSuccess: 'Your ID verification is complete, Please close this window',
                 review: 'Verification complete',
                 upperSuccess: 'Your photo uploads are complete!',
                 success: 'Please close this window to return your online visit.',

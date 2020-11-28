@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import config from "../config/front_config";
 import DateTimePicker from 'react-datetime-picker';
+import moment from 'moment';
 
 const UpdateUser = () => {
     const { id } = useParams();
@@ -52,6 +53,7 @@ const UpdateUser = () => {
             }).then(res => res.json()).then(data => {
                 setIsLoading(false);
                 if (data && data['data'] && data['data']['token']) {
+                    data['data']['date_of_interview'] = localTime(data['data']['date_of_interview']);
                     setUser(data['data']);
                     setUserWithoutEdit(data['data']);
                 } else {
@@ -69,6 +71,7 @@ const UpdateUser = () => {
 
     const update = () => {
         if (validateEmail(user['candidate_email'])) {
+            user['date_of_interview'] = new moment(user['date_of_interview'], "YYYY-MM-DDTHH:mm").utc();
             const token = localStorage.getItem("authToken");
             if (token) {
                 setIsLoading(true);
@@ -126,6 +129,10 @@ const UpdateUser = () => {
         }
     }
 
+    const localTime = (dateTime) => {
+        return new Date(dateTime).toString();
+    }
+
     return (
         <div class="innerPage ptb_100">
             <section>
@@ -148,7 +155,7 @@ const UpdateUser = () => {
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
                                 <img style={{ height: 50 }} src="../../images/weblogo.png" />
                                 <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
-                                </div>
+                            </div>
                             <div class="whiteWrap">
                                 <h3 class="text-center">Interview Details</h3>
                                 <div class="row form___Row pt-5">

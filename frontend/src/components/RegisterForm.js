@@ -1,6 +1,7 @@
 import React from "react";
 import config from "../config/front_config";
 import DateTimePicker from 'react-datetime-picker';
+import moment from 'moment';
 
 export default class RegisterForm extends React.Component {
 
@@ -56,6 +57,7 @@ export default class RegisterForm extends React.Component {
     registerUserData(e) {
         e.preventDefault();
         var { userInfo, isUploading } = this.state;
+        userInfo['date_of_interview'] = new moment(userInfo['date_of_interview'], "YYYY-MM-DDTHH:mm").utc();
         if (this.validateForm(userInfo)) {
             if (isUploading) return;
             this.setState({ isUploading: true });

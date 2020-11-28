@@ -15,7 +15,7 @@ class SubmitSuccess extends React.Component {
         };
     }
     goBack() {
-        window.location.href = '/register';
+        window.location.href = '/';
     }
     render() {
 
