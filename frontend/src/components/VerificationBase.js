@@ -299,7 +299,7 @@ const VerificationBase = () => {
                                     or
                                 {verificationToken ?
                                         <p>
-                                            <a target="_blank" href={config.vouchedIDVerficationURL + verificationToken}>click here to start verification</a>
+                                            <a target="_blank" href={config.vouchedIDVerficationURL + verificationToken}>click here to start verification on new window</a>
                                         </p> : null}
                                 </div>
                             </div>
