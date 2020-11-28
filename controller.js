@@ -24,7 +24,7 @@ controller.getTest = (req, res, next) => {
 };
 
 const convertToEST = (date) => {
-    return moment().tz("America/New_York").format("YYYY-MM-DDTHH:mm");
+    return moment(date).tz("America/New_York").format("YYYY-MM-DDTHH:mm");
 }
 
 
