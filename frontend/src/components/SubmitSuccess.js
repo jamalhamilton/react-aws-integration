@@ -28,7 +28,7 @@ class SubmitSuccess extends React.Component {
                             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="text-center">
                                     <img style={{ height: 50 }} src="images/weblogo.png" />
                                     <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
-\                                </div>
+                                </div>
                                 <div class="whiteWrap">
                                     <p className="not__">That info has been received and email has been sent to candidate. You can invite another candidate.</p>
                                     <div class="text-center pt-2">
