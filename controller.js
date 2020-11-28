@@ -68,7 +68,8 @@ controller.sendMail = (req, res, next) => {
                     subject: 'Interverify Support Team',
                     html: `
                     <h2>Hi ${userInfo.candidate_name_first}.</h2>
-                    <p>You are confirmed for a video interview on ${convertToEST(userInfo.date_of_interview)} EST. You are required to verify your identity before proceeding to the interview. The process should be quick and seamless. Please begin the verification process not more than 5 minutes prior to your interview.</p> 
+                    <p>You are confirmed for a video interview on ${convertToEST(userInfo.date_of_interview)} EST.</p>
+                    <p>You are required to verify your identity before proceeding to the interview. The process should be quick and seamless. Please begin the verification process not more than 5 minutes prior to your interview.</p>
                     <p>When you are ready to begin the verification process, please click the link below.</p>
                     <p><a href="${verifyURL}">${verifyURL}</a></p>
                     <h2>Things to Note</h2>
