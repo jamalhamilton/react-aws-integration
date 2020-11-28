@@ -10,6 +10,7 @@ const VerificationBase = () => {
     const [isLoading, setIsLoading] = useState();
     const history = useHistory();
     const [displayMessage, setDisplayMessage] = useState();
+    const [verificationToken, setVerificationToken] = useState();
 
     const { search } = useLocation();
     const query = new URLSearchParams(search);
@@ -28,6 +29,7 @@ const VerificationBase = () => {
             },
             onInit: ({ token }) => {
                 console.log('initialization');
+                setVerificationToken(token);
             },
             onDone: (job) => {
                 console.log(job);
@@ -75,6 +77,7 @@ const VerificationBase = () => {
     }
 
     const initVouchedBase = (userData) => {
+        setVerificationToken('');
         const script = document.createElement("script");
         script.src = "https://static.vouched.id/widget/vouched.js";
         script.async = true;
@@ -257,7 +260,7 @@ const VerificationBase = () => {
                     <div class="row">
                         <div class="col-12">
                             <div class="text-center">
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} class="text-center">
                                     <img style={{ height: 50 }} src="images/weblogo.png" />
                                     <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
                                 </div>
@@ -292,6 +295,13 @@ const VerificationBase = () => {
                                     </div> 
                                     <div>*/}
                                 <div id='vouched-element' />
+                                <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                                    or
+                                {verificationToken ?
+                                        <p>
+                                            <a target="_blank" href={config.vouchedIDVerficationURL + verificationToken}>click here to start verification</a>
+                                        </p> : null}
+                                </div>
                             </div>
                             {(verificationErrors && verificationErrors.length) ?
                                 <div style={{ color: 'red', marginTop: 20 }}>

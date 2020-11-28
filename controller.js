@@ -2,7 +2,7 @@ let controller = {};
 var nodemailer = require('nodemailer');
 var config = require('./config/server_config');
 const userController = require('./user.controller');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 // var generateRandomString = (len) => {
 //     if (!len) len = 8;
@@ -141,7 +141,7 @@ controller.sendResultMail = (req, res, next) => {
                         <p>Interview Date: ${convertToEST(userInfo.date_of_interview)}</>
                         <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                         <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
-                        <p>Candidate Photo: ${config.aws_s3_endpoint}${userInfo.verify_photo}</p>
+                        <p>Candidate Photo: <a href="${config.aws_s3_endpoint}${userInfo.verify_photo}" target="_blank">Click here</a></p>
                         <p>You may now begin interview process by clicking the link below.</p>
                         <p><a href="${userInfo.social_link}">${userInfo.social_link}</a></p>
                     `

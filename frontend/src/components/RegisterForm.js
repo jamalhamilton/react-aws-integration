@@ -57,14 +57,13 @@ export default class RegisterForm extends React.Component {
     registerUserData(e) {
         e.preventDefault();
         var { userInfo, isUploading } = this.state;
-        userInfo['date_of_interview'] = new moment(userInfo['date_of_interview'], "YYYY-MM-DDTHH:mm").utc();
         if (this.validateForm(userInfo)) {
             if (isUploading) return;
             this.setState({ isUploading: true });
             fetch(config.api.registerUser, {
                 headers: { 'Content-Type': 'application/json' },
                 method: "POST",
-                body: JSON.stringify(userInfo)
+                body: JSON.stringify({ ...userInfo, date_of_interview: new moment(userInfo['date_of_interview'], "YYYY-MM-DDTHH:mm").utc() })
             }).then(res => res.json()).then(data => {
                 if (data.status) {
                     fetch(config.api.sendMail, {

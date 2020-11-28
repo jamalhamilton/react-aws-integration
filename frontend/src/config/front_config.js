@@ -35,5 +35,6 @@ export default {
         adminUpdate: '/api/admin/updateUser',
         getPhotoId: '/api/vouchedVerification'
     },
-    vouched_PUBLIC_KEY: 'V~F_e~g0ySKtaos#PX.I9Vo4P*1Kxh'
+    vouched_PUBLIC_KEY: 'V~F_e~g0ySKtaos#PX.I9Vo4P*1Kxh',
+    vouchedIDVerficationURL: 'https://i.vouched.id/i?h='
 }
