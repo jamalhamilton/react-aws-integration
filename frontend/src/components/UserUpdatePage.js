@@ -53,7 +53,6 @@ const UpdateUser = () => {
             }).then(res => res.json()).then(data => {
                 setIsLoading(false);
                 if (data && data['data'] && data['data']['token']) {
-                    data['data']['date_of_interview'] = localTime(data['data']['date_of_interview']);
                     setUser(data['data']);
                     setUserWithoutEdit(data['data']);
                 } else {
@@ -71,7 +70,6 @@ const UpdateUser = () => {
 
     const update = () => {
         if (validateEmail(user['candidate_email'])) {
-            user['date_of_interview'] = new moment(user['date_of_interview'], "YYYY-MM-DDTHH:mm").utc();
             const token = localStorage.getItem("authToken");
             if (token) {
                 setIsLoading(true);
@@ -82,7 +80,8 @@ const UpdateUser = () => {
                     },
                     method: "POST",
                     body: JSON.stringify({
-                        ...user
+                        ...user,
+                        date_of_interview: new moment(user['date_of_interview'], "YYYY-MM-DDTHH:mm").utc()
                     })
                 }).then(res => res.json()).then(data => {
                     setIsLoading(false);
@@ -127,10 +126,6 @@ const UpdateUser = () => {
                 );
             }
         }
-    }
-
-    const localTime = (dateTime) => {
-        return new Date(dateTime).toString();
     }
 
     return (

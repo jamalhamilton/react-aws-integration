@@ -44,10 +44,6 @@ const AdminPage = () => {
         }
     }
 
-    const localTime = (dateTime) => {
-        return new Date(dateTime).toString();
-    }
-
     const deleteConfermation = () => {
         if (showDeleteConfirmation) {
             return (
@@ -180,7 +176,7 @@ const AdminPage = () => {
                                         <td>{user['verify_photo'] ? user['verify_photo'] : '--'}</td>
                                         <td>{user['verify_idcard'] ? user['verify_idcard'] : '--'}</td>
                                         <td>{user['verify_result'] ? user['verify_result'] : '--'}</td>
-                                        <td>{user['date_of_interview'] ? localTime(user['date_of_interview']) : '--'}</td>
+                                        <td>{user['date_of_interview'] ? user['date_of_interview'] : '--'}</td>
                                         <td>{user['social_link'] ? user['social_link'] : '--'}</td>
                                         <td>{user['interviewer_name_first'] ? user['interviewer_name_first'] : '--'}</td>
                                         <td>{user['interviewer_name_last'] ? user['interviewer_name_last'] : '--'}</td>
