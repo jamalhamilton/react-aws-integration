@@ -222,7 +222,7 @@ header .navbar-expand-lg .navbar-nav .nav-link.btn_1 {
 
 
 .heroSection {
-  padding: 0px;
+  padding: 140px 0px 100px;
   background: url(../images/path_2.svg) center top 50px no-repeat;
   background-size: contain;
   position: relative;

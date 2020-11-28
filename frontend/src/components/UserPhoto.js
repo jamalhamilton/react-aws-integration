@@ -202,23 +202,21 @@ const UserPhoto = () => {
                     }).then(res => res.json()).then(data => {
                         setIsLoading(false);
                         if (data.status) {
-                            fetch(config.api.sendResultMail, {
-                                headers: { 'Content-Type': 'application/json' },
-                                method: "POST",
-                                body: JSON.stringify({
-                                    token,
-                                    similarity: similarity
-                                }),
-                            }).then(response => response.json())
-                                .then(data => {
-                                    if (data.status) {
-                                        showErrorMessage('success', 'verification success!');
-                                        history.push('/verifisuccess?token=' + token);
-                                    }
-                                    else {
-                                        showErrorMessage('error', 'Error sending mail!');
-                                    }
-                                });
+                            Promise.all([
+                                sendResultMailToRecruiter(similarity),
+                                sendResultMailToInterviewer(similarity)
+                            ]).then(data => {
+                                if (data && data[0] && data[1] && data[0].status && data[1].status) {
+                                    showErrorMessage('success', 'verification success!');
+                                    history.push('/verifisuccess?token=' + token);
+                                }
+                                else {
+                                    showErrorMessage('error', 'Error sending mail!');
+                                }
+                            })
+                                .catch((err) => {
+                                    showErrorMessage('error', 'Error sending mail to your Recruiter!');
+                                })
                         } else {
                             showErrorMessage('error', 'Error on verification!');
                         }
@@ -228,6 +226,28 @@ const UserPhoto = () => {
                 });
             });
         }
+    }
+
+    const sendResultMailToRecruiter = (similarity) => {
+        return fetch(config.api.sendResultMail, {
+            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            body: JSON.stringify({
+                token,
+                similarity: similarity
+            }),
+        }).then(response => response.json());
+    }
+
+    const sendResultMailToInterviewer = (similarity) => {
+        return fetch(config.api.sendResultMail, {
+            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            body: JSON.stringify({
+                token,
+                similarity: similarity
+            }),
+        }).then(response => response.json());
     }
 
     const dataURItoBlob = (dataURI) => {

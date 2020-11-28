@@ -13,6 +13,7 @@ router.post('/updateUserInfo', bodyParser.json(), userController.updateUserInfo)
 router.post('/sendMail', bodyParser.json(), controller.sendMail);
 router.post('/sendResultMail', bodyParser.json(), controller.sendResultMail);
 router.post('/sendRegisterSuccessMailToRecruiter', bodyParser.json(), controller.sendRegisterSuccessMailToRecruiter);
+router.post('/sendResultMailToRecruiter', bodyParser.json(), controller.sendResultMailToRecruiter);
 router.post('/vouchedVerification', bodyParser.json(), userController.vouchedVerification);
 
 // admin routes
