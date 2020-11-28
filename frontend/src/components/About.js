@@ -102,11 +102,10 @@ const About = () => {
                             <ul class="f_links">
                                 <li><a href="mailto:test@test.com">test@test.com</a></li>
                             </ul>
-
-                            <h6 class="mt-4">Phone</h6>
+                            {/* <h6 class="mt-4">Phone</h6>
                             <ul class="f_links">
                                 <li><a href="tel:2324-2323-2323">2324-2323-2323</a></li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                     <div class="row copyRightRow__">

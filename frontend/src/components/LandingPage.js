@@ -18,8 +18,8 @@ class LandingPage extends React.Component {
                         <div class="row">
                             <div class="col-12">
                                 <nav class="navbar navbar-expand-lg">
-                                    <img style={{height: 80}} src="images/weblogo.png" />
-                                    <a style={{fontSize: 50, marginLeft: 10}} href="/">interverify</a>
+                                    <img style={{ height: 80 }} src="images/weblogo.png" />
+                                    <a style={{ fontSize: 50, marginLeft: 10 }} href="/">interverify</a>
                                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                                         data-target="#navb">
                                         <span class="navbar-toggler-icon"></span>
@@ -86,9 +86,8 @@ class LandingPage extends React.Component {
                             <div class="row">
                                 <div class="col-md-12 col-12 titleCol">
                                     <h1>Features</h1>
-                                    <p>Get ready to verify and identify candidates in seconds with the swift and reliable
-                        Interverify integration! <br />Take advantage of our feature-rich and efficiently automated
-                        solutions today.</p>
+                                    <p>Get ready to verify and identify customers in seconds with the swift and reliable Interverify integration!
+                                        <br />Take advantage of our feature-rich and efficiently automated solutions today.</p>
                                 </div>
                             </div>
                             <div class="row f_Row">
@@ -97,21 +96,16 @@ class LandingPage extends React.Component {
                                 </div>
                                 <div class="col-md-6 col-12 f_textCol">
                                     <div>
-                                        <h2>Deep facial Analysis</h2>
-                                        <p>We use 2 levels of facial recognition technology to provide high level of certainty that
-                                        the Individual matches the provided ID.
-                        </p>
+                                        <h2>Deep Facial Analysis</h2>
+                                        <p>Facial recognition and analysis are the bedrock of credible customer identity verification. At Interverify, our sophisticated software algorithms use artificial intelligence and machine learning to perform biometric facial recognition. Our proficient grasp of the latest facial recognition technology and access to seasoned software architects allows us to offer accurate facial analysis services that are difficult to bypass using fraudulent means. Our automated facial analysis services will save you hours of time and energy that is better expended elsewhere!</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="row f_Row">
                                 <div class="col-md-6 col-12 f_textCol leftTextCol">
                                     <div>
-                                        <h2>ID Authentication
-                        </h2>
-                                        <p>leverage AI and ML to identify characteristics of ID, making sure ID passes all
-                                        authentication checks.
-                        </p>
+                                        <h2>ID Authentication</h2>
+                                        <p>We understand that businesses, startups, and personal projects of various scopes continuously face the risk of having their security breached. At Interverify, we offer real-time ID authentication solutions to minimize the likelihood of identity theft, online frauds, and financial crimes. Our ID authentication system matches users' information and verifies whether or not it is authentic in seconds. Our system may seem complicated on the backend, but it is incredibly simple upfront!</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12 order-1 imgCenter">
@@ -124,11 +118,8 @@ class LandingPage extends React.Component {
                                 </div>
                                 <div class="col-md-6 col-12 f_textCol">
                                     <div>
-                                        <h2>IP Address verification.
-                        </h2>
-                                        <p>Verify that Candidate taking the verification is at the correct location provided, using
-                                        IP Address verification.
-                        </p>
+                                        <h2>IP Address Verification</h2>
+                                        <p>Did you know? A considerable fraction of online crimes are committed through the exploitation of IP addresses. At Interverify, we can identify the device type of an Internet Protocol (IP)  address based anywhere in the world. We use this information to cross-check against other data points (bills, receipts, and addresses) that the user may have provided to flag any potential fraudulent activities and suspicious behavior. We deliver the most authentic and accurate IP address verification services available with our access to regularly updated databases.</p>
                                     </div>
                                 </div>
                             </div>
@@ -137,12 +128,8 @@ class LandingPage extends React.Component {
                             <div class="row f_Row">
                                 <div class="col-md-6 col-12 f_textCol leftTextCol">
                                     <div>
-                                        <h2>Platform Agnostic
-
-                        </h2>
-                                        <p>This can be used with any video conferencing platform including Zoom, Skype, Google
-                                        Hangout, HireVue and much more.
-                        </p>
+                                        <h2>Platform Agnostic</h2>
+                                        <p>Regardless of which web conferencing platform you chose, Interverify is has a seamless integration. By simply providing a weblink to you web meeting, Interverify handles the verification process and forwards your candidate to the weblink at the time of the interview, while providing the recruiter and interviewer an analysis report of the candidate.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12 order-1 imgCenter">
@@ -155,9 +142,7 @@ class LandingPage extends React.Component {
                                 </div>
                                 <div class="col-md-6 col-12 f_textCol">
                                     <div>
-                                        <h2>Quick and Easy to use.
-
-                        </h2>
+                                        <h2>Quick and Easy to use</h2>
                                         <p>Entire verification process takes less than 1 minute to deliver analysis, and provides
                                         guided steps to conclude verification process.
                         </p>
@@ -289,10 +274,10 @@ class LandingPage extends React.Component {
                                     <li><a href="mailto:contact@interverify.co">contact@interverify.co</a></li>
                                 </ul>
 
-                                <h6 class="mt-4">Phone</h6>
+                                {/* <h6 class="mt-4">Phone</h6>
                                 <ul class="f_links">
                                     <li><a href="tel:2324-2323-2323">2324-2323-2323</a></li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </div>
                         <div class="row copyRightRow__">
