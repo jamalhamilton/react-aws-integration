@@ -1098,3 +1098,21 @@ textarea.input__ {
 .wrap400{
   margin: 0px auto;
 }
+
+.stepCircle {
+  border-radius: 50%;
+  height: 170px;
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #25C14F;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.stepCircle p {
+  font-size: 19px;
+}

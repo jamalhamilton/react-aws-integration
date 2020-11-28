@@ -70,6 +70,28 @@ class LandingPage extends React.Component {
                 <section class="secondSection">
                     <div class="container">
                         <div class="row justify-content-center">
+                            <div class="col-md-12 col-12 titleCol">
+                                <h1>HOW IT WORKS</h1>
+                            </div>
+                            <div style={{ alignItems: 'center', justifyContent: 'center' }} class="row col-lg-8 col-md-12 col-12">
+                                <div class="stepCircle justify-content-center">
+                                    <span><p>PROVIDE CANDIDATE INFORMATION</p></span>
+                                </div>
+                                <i style={{ marginLeft: 20, fontSize: 45, color: '#25C14F' }} class="fas fa-arrow-right"></i>
+                                <div style={{ marginLeft: 20 }} class="stepCircle justify-content-center">
+                                    <span><p>ID VERIFICATION</p></span>
+                                </div>
+                                <i style={{ marginLeft: 20, fontSize: 45, color: '#25C14F' }} class="fas fa-arrow-right"></i>
+                                <div style={{ marginLeft: 20 }} class="stepCircle justify-content-center">
+                                    <span><p>FACIAL VERIFICATION</p></span>
+                                </div>
+                                <i style={{ marginLeft: 20, fontSize: 45, color: '#25C14F' }} class="fas fa-arrow-right"></i>
+                                <div style={{ marginLeft: 20 }} class="stepCircle justify-content-center">
+                                    <span><p>PROCEED TO INTERVIEW</p></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
                             <div class="col-lg-8 col-md-12 col-12">
                                 <p>Interverify offers easy to implement and reliable identity verification services for recruitment
                                 process. We have designed an advance software and algorithms into a simple and straightforward
