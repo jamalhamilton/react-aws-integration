@@ -215,7 +215,7 @@ This privacy policy applies to all information collected through our website (
                             <div style={{ justifyContent: 'flex-end' }} class="row">
                                 <p class="copyRight__">© 2020 All Rights Reserved</p>
                                 <a href="privacypolicy"><p style={{ marginLeft: 13, textDecorationLine: 'underline' }} class="copyRight__">Privacy policy</p></a>
-                                <a href="#"><p style={{ marginLeft: 13, textDecorationLine: 'underline' }} class="copyRight__">Terms of use</p></a>
+                                <a href="termsofuse"><p style={{ marginLeft: 13, textDecorationLine: 'underline' }} class="copyRight__">Terms of use</p></a>
                                 <a href="#"><p style={{ marginLeft: 13, textDecorationLine: 'underline' }} class="copyRight__">Terms &amp; conditions</p></a>
                             </div>
                         </div>
