@@ -19,6 +19,7 @@ import UserId from "./components/UserId";
 import VerificationSuccess from "./components/VerificationSuccess";
 import IDAuth from "./components/IDAuth";
 import About from "./components/About";
+import Privacypolicy from "./components/Privacypolicy";
 
 const AuthRoute = ({ children, ...rest }) => {
     const token = localStorage.getItem("authToken");
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/verifisuccess" children={<VerificationSuccess />} />
                 <Route path="/idauth" children={<IDAuth />} />
                 <Route path="/about" children={<About />} />
+                <Route path="/privacypolicy" children={<Privacypolicy />} />
                 <Route path="/" children={<LandingPage />} />
             </Switch>
         </Router>
