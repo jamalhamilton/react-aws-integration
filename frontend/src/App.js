@@ -21,6 +21,7 @@ import IDAuth from "./components/IDAuth";
 import About from "./components/About";
 import Privacypolicy from "./components/Privacypolicy";
 import TermsOfUse from "./components/TermsOfUse";
+import TermsAndConditions from "./components/TermsAndConditions";
 
 const AuthRoute = ({ children, ...rest }) => {
     const token = localStorage.getItem("authToken");
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/about" children={<About />} />
                 <Route path="/privacypolicy" children={<Privacypolicy />} />
                 <Route path="/termsofuse" children={<TermsOfUse />} />
+                <Route path="/termsandconditions" children={<TermsAndConditions />} />
                 <Route path="/" children={<LandingPage />} />
             </Switch>
         </Router>
