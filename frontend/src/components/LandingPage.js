@@ -49,7 +49,7 @@ class LandingPage extends React.Component {
                         </div>
                     </div>
                 </header>
-                <section class="heroSection">
+                <section style={{paddingBottom: 0}} class="heroSection">
                     <div class="container">
                         <div class="row heroRow">
                             <div class="col-xl-7 col-lg-6 col-md-6 col-12 heroSliderFull">
@@ -71,7 +71,7 @@ class LandingPage extends React.Component {
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-12 col-12 titleCol">
-                                <h1>HOW IT WORKS</h1>
+                                <h1>How It Works</h1>
                             </div>
                             <div style={{ alignItems: 'center', justifyContent: 'center' }} class="row col-lg-8 col-md-12 col-12">
                                 <div class="stepCircle justify-content-center">
