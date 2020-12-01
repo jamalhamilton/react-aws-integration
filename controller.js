@@ -483,15 +483,12 @@ controller.sendMail = (req, res, next) => {
                     </head>
                     
                     <body>
-                      <span class="preheader">Going live October 14, Elastic's Financial Analyst Meeting</span>
                       <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td align="center">
                             <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                               <tr>
                                 <td class="email-masthead">
-                                  <a href="https://MyVirtualGradParty.com" class="f-fallback email-masthead_name">
-                                  </a>
                                   <div class="top-logo" style="text-align: center;">
                                     <a href="https://interverify.co/" class="f-fallback email-masthead_name" style="text-align: center;">
                                       <img src="https://interverify.co/images/weblogo.png" alt="Elasticam2020"
@@ -1018,15 +1015,12 @@ controller.sendResultMail = (req, res, next) => {
 </head>
 
 <body>
-  <span class="preheader">Going live October 14, Elastic's Financial Analyst Meeting</span>
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center">
         <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
           <tr>
             <td class="email-masthead">
-              <a href="https://MyVirtualGradParty.com" class="f-fallback email-masthead_name">
-              </a>
               <div class="top-logo" style="text-align: center;">
                 <a href="https://interverify.co/" class="f-fallback email-masthead_name" style="text-align: center;">
                   <img src="https://interverify.co/images/weblogo.png" alt="Elasticam2020"
@@ -1550,15 +1544,12 @@ controller.sendResultMailToRecruiter = (req, res, next) => {
                     </head>
                     
                     <body>
-                      <span class="preheader">Going live October 14, Elastic's Financial Analyst Meeting</span>
                       <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td align="center">
                             <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                               <tr>
                                 <td class="email-masthead">
-                                  <a href="https://MyVirtualGradParty.com" class="f-fallback email-masthead_name">
-                                  </a>
                                   <div class="top-logo" style="text-align: center;">
                                     <a href="https://interverify.co/" class="f-fallback email-masthead_name" style="text-align: center;">
                                       <img src="https://interverify.co/images/weblogo.png" alt="Elasticam2020"
@@ -2084,15 +2075,12 @@ controller.sendRegisterSuccessMailToRecruiter = (req, res, next) => {
                     </head>
                     
                     <body>
-                      <span class="preheader">Going live October 14, Elastic's Financial Analyst Meeting</span>
                       <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td align="center">
                             <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                               <tr>
                                 <td class="email-masthead">
-                                  <a href="https://MyVirtualGradParty.com" class="f-fallback email-masthead_name">
-                                  </a>
                                   <div class="top-logo" style="text-align: center;">
                                     <a href="https://interverify.co/" class="f-fallback email-masthead_name" style="text-align: center;">
                                       <img src="https://interverify.co/images/weblogo.png" alt="Elasticam2020"
