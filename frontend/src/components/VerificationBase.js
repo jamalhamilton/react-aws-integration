@@ -96,8 +96,18 @@ const VerificationBase = () => {
                 console.log("verificationResult", verificationResult);
                 console.log("user Result", user);
                 if (verificationResult['result'] && verificationResult['result']['firstName'] && user['candidate_name_first'] && verificationResult['result']['lastName'] && user['candidate_name_last']) {
-                    if ((verificationResult['result']['firstName'].toLowerCase()) === (user['candidate_name_first'].toLowerCase()) && (verificationResult['result']['lastName'].toLowerCase()) === (user['candidate_name_last'].toLowerCase())) {
+                    const resultFirstName = verificationResult['result']['firstName'].toLowerCase();
+                    const resultLastName = verificationResult['result']['lastName'].toLowerCase();
+                    const actualFirstName = user['candidate_name_first'].toLowerCase();
+                    const actualLastName = user['candidate_name_last'].toLowerCase();
+                    if (resultFirstName === actualFirstName && resultLastName === actualLastName) {
                         nameMatch = 'match';
+                    } else if (resultFirstName.split(' ')[0] === actualFirstName) {
+                        if (resultLastName === actualLastName) {
+                            nameMatch = 'match';
+                        } else if (resultLastName.split(' ')[0] === actualLastName) {
+                            nameMatch = 'match';
+                        }
                     }
                 }
                 getPhotoIDandUpdateToAWS(verificationResult['token'], nameMatch);
