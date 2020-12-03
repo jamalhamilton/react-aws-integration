@@ -184,7 +184,14 @@ export default class RegisterForm extends React.Component {
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
-
+                                            <div class="form-group">
+                                                <label class="label__">Time Zone (only for sending mails) <span class="req__">*</span></label>
+                                                <select name="time_zone" onChange={this.handleChange} class="input__">
+                                                    <option value="est">Eastern Standard Time</option>
+                                                    <option value="cst">Central Standard Time</option>
+                                                </select>
+                                                {this.state.formError && this.state.formError['time_zone'] ? <small style={{ color: '#d32222', marginLeft: 3 }}>{this.state.formError['time_zone'] ? this.state.formError['time_zone'] : 'Time Zone is not valid.'}</small> : null}
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="form-group">

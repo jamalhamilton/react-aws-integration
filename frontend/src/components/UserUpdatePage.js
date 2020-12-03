@@ -177,6 +177,16 @@ const UpdateUser = () => {
 
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
+                                            <label class="label__">Time Zone (only for sending mails) <span class="req__">*</span></label>
+                                            <select name="time_zone" onChange={handleChange} class="input__">
+                                                <option selected={user?.time_zone == 'est'} value="est">Eastern Standard Time</option>
+                                                <option selected={user?.time_zone == 'cst'} value="cst">Central Standard Time</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
                                             <label class="label__">Date Of Interview </label>
                                             {/* <input defaultValue={user?.date_of_interview} name="date_of_interview" onChange={handleChange} type="date" placeholder="Enter Candidate First Name" class="input__" /> */}
                                             <DateTimePicker className={"input__"} value={user?.date_of_interview} name="date_of_interview" onChange={(val) => handleDateChange(val)} />

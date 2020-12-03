@@ -161,6 +161,7 @@ const AdminPage = () => {
                             <th>Recruiter Last Name</th>
                             <th>Recruiter Email</th>
                             <th>Company Name</th>
+                            <th>Time Zone</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -187,6 +188,7 @@ const AdminPage = () => {
                                         <td>{user['recruiter_last_name'] ? user['recruiter_last_name'] : '--'}</td>
                                         <td>{user['recruiter_email'] ? user['recruiter_email'] : '--'}</td>
                                         <td>{user['company_name'] ? user['company_name'] : '--'}</td>
+                                        <td>{user['time_zone'] ? user['time_zone'] === 'cst' ? 'Central Standard Time' : user['time_zone'] === 'est' ? 'Eastern Standard Time' : '--' : '--'}</td>
                                         <td>
                                             <ButtonGroup size="sm">
                                                 <Button onClick={() => history.push(`/admin/update/${user['token']}`)}><i className="fa fa-edit"></i></Button>

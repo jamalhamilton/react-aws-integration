@@ -27,6 +27,10 @@ const convertToEST = (date) => {
     return moment(date).tz("America/New_York").format("YYYY-MM-DDTHH:mm");
 }
 
+const convertToCST = (date) => {
+  return moment(date).tz('America/Chicago').format("YYYY-MM-DD HH:mm");;
+}
+
 
 controller.sendMail = (req, res, next) => {
     console.log('send mail');
@@ -506,7 +510,7 @@ controller.sendMail = (req, res, next) => {
                                       <td class="content-cell">
                                         <div class="f-fallback">
                                           <p>Hi ${userInfo.candidate_name_first}, </p>
-                                          <p>You are confirmed for a video interview on  ${convertToEST(userInfo.date_of_interview)} EST. </p>
+                                          <p>You are confirmed for a video interview on  ${userInfo['time_zone'] == 'cst' ? convertToCST(userInfo.date_of_interview) + ' CST' : convertToEST(userInfo.date_of_interview) + ' EST'}. </p>
                                           <p> You are required to verify your identity before proceeding to the interview. The process
                                             should be quick and
                                             seamless. Please begin the verification process not more than 5 minutes prior to your interview.
@@ -1039,7 +1043,7 @@ controller.sendResultMail = (req, res, next) => {
                     <div class="f-fallback">
                       <p>Hi ${userInfo.interviewer_name_first}, </p>
                       <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
-                      <p>Interview Date: ${convertToEST(userInfo.date_of_interview)} EST.</p>
+                      <p>Interview Date:  ${userInfo['time_zone'] === 'cst' ? convertToCST(userInfo.date_of_interview) + ' CST' : convertToEST(userInfo.date_of_interview) + ' EST'}.</p>
                       <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                       <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result ===
                             'verified') ? 'Verified' : 'Not Verified'}</p>
@@ -1568,7 +1572,7 @@ controller.sendResultMailToRecruiter = (req, res, next) => {
                                         <div class="f-fallback">
                                           <p>Hi ${userInfo.recruiter_first_name}, </p>
                                           <p>Your Interview candidate has successfully verified their Identity using InterVerify.</p>
-                                            <p>Interview Date: ${convertToEST(userInfo.date_of_interview)} EST.</p>
+                                            <p>Interview Date:  ${userInfo['time_zone'] === 'cst' ? convertToCST(userInfo.date_of_interview) + ' CST' : convertToEST(userInfo.date_of_interview) + ' EST'}.</p>
                                             <p>Candidate Name: ${(userInfo.name_match && userInfo.name_match === 'match') ? 'Match' : 'Not Match'}</p>
                                             <p>Candidate ID: ${(userInfo.id_verification_result && userInfo.id_verification_result === 'verified') ? 'Verified' : 'Not Verified'}</p>
                                             <p>Candidate Photo: <a href="${config.aws_s3_endpoint}${userInfo.verify_photo}" target="_blank">Click here</a>
@@ -2098,7 +2102,7 @@ controller.sendRegisterSuccessMailToRecruiter = (req, res, next) => {
                                       <td class="content-cell">
                                         <div class="f-fallback">
                                           <p>Hi ${userInfo.recruiter_first_name}, </p>
-                                          <p>You have submitted an Interverify request for ${userInfo.candidate_name_first} ${userInfo.candidate_name_last} for interview on ${convertToEST(userInfo.date_of_interview)} EST.</p>
+                                          <p>You have submitted an Interverify request for ${userInfo.candidate_name_first} ${userInfo.candidate_name_last} for interview on  ${userInfo['time_zone'] === 'cst' ? convertToCST(userInfo.date_of_interview) + ' CST' : convertToEST(userInfo.date_of_interview) + ' EST'}.</p>
                                           <p>Candidate will begin verification not more than 5 minutes before the Interview. Once verification is complete, you will be notified with the results.</p> 
                                           <p>If you need to make changes to this submission, please email <a href="mailto:support@interverify.co">support@interverify.co</a> with the changes. Please include candidate name in the email.</p>
                                         </div>
