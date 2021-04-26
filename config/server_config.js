@@ -23,5 +23,5 @@ module.exports = {
         region: 'us-east-2'
     },
     jwtSecretKey: "xx",
-    aws_s3_endpoint: 'https://idauth.s3.us-east-2.amazonaws.com/'
+    aws_s3_endpoint: 'https://s3.us-east-2.amazonaws.com/'
 }
